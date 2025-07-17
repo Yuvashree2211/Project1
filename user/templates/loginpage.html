@@ -6,7 +6,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>WorkWise</title>
   <style>
-    /* Reset & base styles */
     * {
       margin: 0;
       padding: 0;
@@ -30,9 +29,8 @@
     }
 
     .logo img {
-      max-width: 100%;
-      height: auto;
       width: 150px;
+      height: auto;
       margin-bottom: 20px;
     }
 
@@ -43,13 +41,14 @@
     }
 
     .btn {
+      display: block;
       width: 100%;
       padding: 15px;
       margin: 10px 0;
       font-size: 1rem;
       border-radius: 5px;
-      cursor: pointer;
-      border: none;
+      text-align: center;
+      text-decoration: none;
       transition: background-color 0.3s ease;
     }
 
@@ -74,7 +73,7 @@
 
     .forgot {
       display: block;
-      margin-top: 10px;
+      margin-top: 12px;
       font-size: 0.9rem;
       color: #555;
       text-decoration: none;
@@ -84,7 +83,6 @@
       text-decoration: underline;
     }
 
-    /* Responsive tweaks */
     @media (max-width: 480px) {
       .title {
         font-size: 1.5rem;
@@ -100,12 +98,13 @@
 <body>
   <div class="container">
     <div class="logo">
-      <img src="{% static 'handshake.png' %}" alt="WorkWise Logo" />
+      <img src="{% static 'handshake.png' %}" alt="WorkWise logo - handshake icon" />
     </div>
+
     <h1 class="title">WorkWise</h1>
 
-    <button class="btn sign-in">Sign In</button>
-    <button class="btn sign-up">Sign Up</button>
+    <a href="{% url 'signin' %}" class="btn sign-in">Sign In</a>
+    <a href="{% url 'signup' %}" class="btn sign-up">Sign Up</a>
 
     <a href="#" class="forgot">Forgot Password?</a>
   </div>

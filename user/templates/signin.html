@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Employee Sign Up</title>
+  <title>Employee Sign In</title>
   <style>
     * {
       box-sizing: border-box;
@@ -20,7 +20,7 @@
       height: 100vh;
     }
 
-    .signup-container {
+    .signin-container {
       width: 100%;
       max-width: 400px;
       padding: 20px;
@@ -45,10 +45,6 @@
       font-size: 16px;
     }
 
-    .input-group input[type="file"] {
-      padding: 10px;
-    }
-
     .input-group img.icon {
       position: absolute;
       top: 12px;
@@ -58,7 +54,7 @@
       opacity: 0.5;
     }
 
-    .signup-btn {
+    .signin-btn {
       width: 100%;
       background-color: #6CB66F;
       border: none;
@@ -71,17 +67,17 @@
       transition: background 0.3s;
     }
 
-    .signup-btn:hover {
+    .signin-btn:hover {
       background-color: #589f5a;
     }
 
-    .login-link {
+    .signup-link {
       text-align: center;
       margin-top: 10px;
       font-size: 14px;
     }
 
-    .login-link a {
+    .signup-link a {
       color: #4CAF50;
       text-decoration: none;
     }
@@ -113,26 +109,16 @@
   </style>
 </head>
 <body>
-  <div class="signup-container">
-    <h2>Sign Up for Better Experience</h2>
+  <div class="signin-container">
+    <h2>Welcome Back! Sign In</h2>
 
-    <form method="post" enctype="multipart/form-data">
+    <form method="post">
       {% csrf_token %}
-
-      <!-- Full Name -->
-      <div class="input-group">
-        <input type="text" name="full_name" placeholder="Full Name" required />
-      </div>
 
       <!-- Email -->
       <div class="input-group">
         <img src="https://cdn-icons-png.flaticon.com/512/561/561127.png" class="icon" alt="Email Icon" />
         <input type="email" name="email" placeholder="Email" required />
-      </div>
-
-      <!-- Phone -->
-      <div class="input-group">
-        <input type="text" name="phone" placeholder="Phone Number" required />
       </div>
 
       <!-- Password -->
@@ -141,16 +127,11 @@
         <input type="password" name="password" placeholder="Password" required />
       </div>
 
-      <!-- Profile Picture -->
-      <div class="input-group">
-        <input type="file" name="profile_picture" accept="image/*" />
-      </div>
-
-      <button class="signup-btn" type="submit">Sign Up</button>
+      <button class="signin-btn" type="submit">Sign In</button>
     </form>
 
-    <div class="login-link">
-      Already have an account? <a href="{% url 'login' %}">Sign In</a>
+    <div class="signup-link">
+      Don't have an account? <a href="{% url 'signup' %}">Sign Up</a>
     </div>
 
     <div class="google-btn">
