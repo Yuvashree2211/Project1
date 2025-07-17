@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 """
 URL configuration for emp project.
 
@@ -36,4 +37,12 @@ urlpatterns = [
     path('signup/',user_signup, name='signup'),
     path('signin/', signin_view, name='signin'),
     path('dashboard/',dashboard_view, name='dashboard'),
+=======
+from django.contrib import admin
+from django.urls import path, include
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('', include('your_app_name.urls')),  # replace with your app name
+>>>>>>> cece332 (changes)
 ]
