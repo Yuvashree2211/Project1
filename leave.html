@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Leave Management</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f5f5f5;
+    }
+
+    .header {
+      background-color: #7ac143;
+      color: white;
+      padding: 15px;
+      text-align: center;
+      position: relative;
+    }
+
+    .header .menu,
+    .header .back {
+      position: absolute;
+      top: 15px;
+      font-size: 20px;
+      cursor: pointer;
+    }
+
+    .header .back {
+      left: 15px;
+    }
+
+    .header .menu {
+      right: 15px;
+    }
+
+    .container {
+      padding: 15px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: white;
+      margin-bottom: 20px;
+    }
+
+    table, th, td {
+      border: 1px solid #ccc;
+    }
+
+    th, td {
+      padding: 10px;
+      text-align: center;
+    }
+
+    .actions button {
+      padding: 6px 12px;
+      border: 1px solid #999;
+      background-color: white;
+      cursor: pointer;
+    }
+
+    .form-container {
+      background-color: white;
+      border: 1px solid #ccc;
+      padding: 15px;
+    }
+
+    .form-container h3 {
+      margin-top: 0;
+    }
+
+    .form-group {
+      margin-bottom: 10px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ccc;
+    }
+
+    .save-btn {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      cursor: pointer;
+      margin-top: 10px;
+      width: 100%;
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      .header h2 {
+        font-size: 18px;
+      }
+
+      .form-group input {
+        font-size: 14px;
+      }
+
+      table, th, td {
+        font-size: 14px;
+      }
+
+      .save-btn {
+        font-size: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <span class="back">&#8592;</span>
+    <h2>Leave</h2>
+    <span class="menu">&#9776;</span>
+  </div>
+
+  <div class="container">
+
+    <table>
+      <thead>
+        <tr>
+          <th>Leave ID</th>
+          <th>Start Date</th>
+          <th>End Date</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>2024-03-20</td>
+          <td>Type1</td>
+          <td class="actions"><button>Edit</button></td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>2023-11-22</td>
+          <td>Type2</td>
+          <td class="actions"><button>Edit</button></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="form-container">
+      <h3>Add Leave</h3>
+      <div class="form-group">
+        <label for="user-id">User ID</label>
+        <input type="text" id="user-id" />
+      </div>
+      <div class="form-group">
+        <label for="start-date">Start Date</label>
+        <input type="date" id="start-date" />
+      </div>
+      <div class="form-group">
+        <label for="end-date">End Date</label>
+        <input type="date" id="end-date" />
+      </div>
+      <div class="form-group">
+        <label for="reason">Reason</label>
+        <input type="text" id="reason" />
+      </div>
+      <div class="form-group">
+        <label for="type">Type</label>
+        <input type="text" id="type" />
+      </div>
+      <div class="form-group">
+        <label for="requested-at">Requested At</label>
+        <input type="datetime-local" id="requested-at" />
+      </div>
+      <button class="save-btn">Save</button>
+    </div>
+
+  </div>
+
+</body>
+</html>
