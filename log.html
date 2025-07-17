@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login Page</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f5f5f5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 400px;
+      padding: 20px;
+    }
+
+    .card {
+      background: white;
+      padding: 30px 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.05);
+      text-align: center;
+    }
+
+    .card h2 {
+      margin-bottom: 20px;
+      font-weight: 600;
+    }
+
+    .illustration {
+      width: 100%;
+      max-height: 180px;
+      object-fit: contain;
+      margin-bottom: 20px;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    input[type="email"],
+    input[type="password"] {
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 14px;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: #4caf50;
+    }
+
+    .forgot {
+      text-align: right;
+      font-size: 13px;
+      color: #7e7e7e;
+      margin-top: -8px;
+      margin-bottom: 8px;
+      text-decoration: none;
+      display: block;
+    }
+
+    .btn {
+      padding: 12px;
+      background-color: #4caf50;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .btn:hover {
+      background-color: #449944;
+    }
+
+    .signup {
+      font-size: 14px;
+      margin-top: 15px;
+    }
+
+    .signup a {
+      color: #4caf50;
+      text-decoration: none;
+    }
+
+    .google-btn {
+      margin-top: 20px;
+      padding: 10px;
+      border: 1px solid #ddd;
+      background-color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .google-btn img {
+      width: 18px;
+      height: 18px;
+    }
+
+    @media (max-width: 480px) {
+      .card {
+        padding: 20px 15px;
+      }
+
+      .btn,
+      .google-btn {
+        font-size: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="card">
+      <h2>Welcome Back!</h2>
+      <img src="pic 2.png" alt="Login Illustration" class="illustration">
+      
+      <form>
+        <input type="email" placeholder="Email" required>
+        <input type="password" placeholder="Password" required>
+        <a href="#" class="forgot">Forgot Password?</a>
+        <button type="submit" class="btn">Sign In</button>
+      </form>
+
+      <p class="signup">Don’t have an account? <a href="#">Sign Up</a></p>
+
+      <button class="google-btn">
+        <img src="download (9).png" alt="Google logo">
+        Continue with Google
+      </button>
+    </div>
+  </div>
+</body>
+</html>

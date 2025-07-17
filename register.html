@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registration Completed Modal</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: rgba(0,0,0,0.1);
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal {
+      position: relative;
+      background-color: #fff;
+      padding: 20px;
+      width: 90%;
+      max-width: 350px;
+      border-radius: 5px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      text-align: center;
+    }
+
+    .modal h2 {
+      font-size: 16px;
+      margin-bottom: 15px;
+    }
+
+    .modal img {
+      width: 80px;
+      height: 80px;
+    }
+
+    .modal p {
+      font-size: 14px;
+      margin-top: 15px;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 8px;
+      right: 10px;
+      font-size: 18px;
+      background: none;
+      border: none;
+      color: red;
+      cursor: pointer;
+    }
+
+    @media (max-width: 400px) {
+      .modal img {
+        width: 60px;
+        height: 60px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="modal">
+    <button class="close-btn" onclick="closeModal()">&#10006;</button>
+    <h2>Your registration is completed...</h2>
+    <img src="https://cdn-icons-png.flaticon.com/512/190/190411.png" alt="Verification">
+    <p>Wait for verification! After verify you will get a email.</p>
+  </div>
+
+  <script>
+    function closeModal() {
+      document.querySelector('.modal').style.display = 'none';
+    }
+  </script>
+
+</body>
+</html>
