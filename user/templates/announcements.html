@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Announcements</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    .card {
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    .btn-edit {
+      padding: 4px 12px;
+      font-size: 13px;
+      background-color: #e2e2e2;
+      border: 1px solid #999;
+    }
+    .btn-delete{
+      padding: 4px 12px;
+      font-size: 13px;
+      background-color: #e2e2e2;
+      border: 1px solid #999;
+    }
+    .btn-save {
+      background-color: #4CAF50;
+      color: white;
+    }
+    .header {
+      background-color: #4CAF50;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container py-3">
+    <!-- Header -->
+    <div class="d-flex justify-content-between align-items-center p-2 mb-3 header rounded">
+      <div>
+        <button class="btn btn-light btn-sm">&#8592;</button>
+        <span class="ms-2 fw-bold">Announcements</span>
+      </div>
+      <button class="btn btn-light btn-sm">&#9776;</button>
+    </div>
+
+    <!-- Table Section -->
+    <div class="table-responsive mb-4">
+      <table class="table table-bordered">
+        <thead class="table-light">
+          <tr>
+            <th>Announcement</th>
+            <th>Title</th>
+            <th>Created At</th>
+
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1. Lorem ipsum</td>
+            <td>User 1</td>
+
+            <td>
+              <button class="btn btn-sm btn-edit">Edit</button>
+            </td>
+          </tr>
+          <tr>
+            <td>2. Dolor sit amet</td>
+            <td>User 2</td>
+
+            <td>
+              <button class="btn btn-sm btn-delete">Delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Add Announcement Form -->
+    <div class="card p-3">
+      <h5 class="mb-3">Add Announcement</h5>
+      <form>
+        <div class="mb-2">
+          <label class="form-label">Title</label>
+          <input type="text" class="form-control" placeholder="Enter title" />
+        </div>
+        <div class="mb-2">
+          <label class="form-label">Description</label>
+          <textarea class="form-control" rows="3" placeholder="Enter description"></textarea>
+        </div>
+        <div class="mb-2">
+          <label class="form-label">Created By</label>
+          <input type="text" class="form-control" placeholder="Enter user" />
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Created At</label>
+          <input type="date" class="form-control" />
+        </div>
+        <button type="submit" class="btn btn-save w-100">Save</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
