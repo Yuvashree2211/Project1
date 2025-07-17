@@ -1,0 +1,89 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>WorkWise Splash Screen</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      height: 100%;
+      background-color: white;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .splash-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .logo {
+      width: 150px;
+      height: auto;
+      margin-bottom: 25px;
+    }
+
+    .title {
+      font-size: 2.5rem;
+      font-weight: 500;
+      color: #000;
+      margin-bottom: 40px;
+    }
+
+    .progress-bar {
+      width: 60%;
+      max-width: 500px;
+      height: 8px;
+      background-color: #e0e0e0;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .progress {
+      width: 0%;
+      height: 100%;
+      background-color: #4CAF50;
+      animation: loadProgress 3s ease-in-out forwards;
+    }
+
+    @keyframes loadProgress {
+      0% { width: 0; }
+      100% { width: 60%; }
+    }
+
+    @media (max-width: 768px) {
+      .logo {
+        width: 120px;
+      }
+
+      .title {
+        font-size: 1.8rem;
+      }
+
+      .progress-bar {
+        width: 80%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="splash-container">
+    <img src="{% static 'handshake.png' %}" alt="WorkWise Logo" class="logo" />
+    <h1 class="title">WorkWise</h1>
+    <div class="progress-bar">
+      <div class="progress"></div>
+    </div>
+  </div>
+</body>
+</html>

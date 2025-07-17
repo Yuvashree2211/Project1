@@ -1,0 +1,106 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Choose Role</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #ffffff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .top-image {
+      width: 90%;
+      max-width: 400px;
+      margin-top: 20px;
+    }
+
+    .role-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      margin: 40px 0;
+      flex-wrap: wrap;
+    }
+
+    .role-buttons .role {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+
+    .role-buttons .role:hover {
+      transform: scale(1.05);
+    }
+
+    .role-buttons .role img {
+      width: 80px;
+      height: 80px;
+      object-fit: contain;
+      background-color: #4CAF50;
+      padding: 10px;
+      border-radius: 50%;
+    }
+
+    .role-buttons .role span {
+      margin-top: 10px;
+      font-weight: bold;
+      color: #333;
+    }
+
+    .bottom-image {
+      width: 100px;
+      max-width: 150px;
+      margin-bottom: 20px;
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      .top-image {
+        max-width: 100%;
+      }
+
+      .bottom-image {
+        width: 80px;
+      }
+
+      .role-buttons .role img {
+        width: 70px;
+        height: 70px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <img src="{% static 'illustration.png' %}" alt="Illustration" class="top-image" />
+
+  <div class="role-buttons">
+    <div class="role">
+      <img src="{% static 'employee-icon.png' %}" alt="Employee Icon" />
+      <span>Employee</span>
+    </div>
+    <div class="role">
+      <img src="{% static 'supervisor-icon.png' %}" alt="Supervisor Icon" />
+      <span>Supervisor</span>
+    </div>
+  </div>
+
+  <img src="{% static 'handshake.png' %}" alt="Handshake" class="bottom-image" />
+
+</body>
+</html>

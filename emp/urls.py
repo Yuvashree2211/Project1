@@ -16,7 +16,18 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-
+from user.views import index_view
+from django.urls import path, include
+from user.views import login_page
+urlpatterns = [
+    path('', index_view, name='index'),
+    path('admin/', admin.site.urls),
+]
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', include('user.urls')),  # Include your app's routes
+]
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('', login_page, name='login'),  # Set root URL to show login page
 ]
