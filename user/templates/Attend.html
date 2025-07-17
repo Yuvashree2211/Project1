@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Attendance</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f2f2f2;
+      margin: 0;
+      padding: 0;
+      font-size: 16px; /* consistent font size on all devices */
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #4CAF50;
+      color: white;
+      padding: 10px 20px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .header h2 {
+      margin: 0;
+      font-size: 20px;
+    }
+
+    .arrow, .menu {
+      font-size: 20px;
+      cursor: pointer;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: auto;
+      background: #fff;
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    .date {
+      background: white;
+      border: none;
+      padding: 5px 10px;
+      border-radius: 4px;
+      font-size: 14px;
+      margin-top: 10px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 15px;
+    }
+
+    th, td {
+      text-align: left;
+      padding: 10px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th {
+      background: #f4f4f4;
+    }
+
+    .name {
+      font-weight: bold;
+    }
+
+    .role {
+      font-size: 12px;
+      color: #888;
+    }
+
+    .late {
+      color: red;
+    }
+
+    .export-link {
+      text-decoration: none;
+      color: #007BFF;
+      font-weight: bold;
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        padding: 10px;
+      }
+
+      .header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      table, thead, tbody, th, td, tr {
+        display: block;
+      }
+
+      thead {
+        display: none;
+      }
+
+      tr {
+        margin-bottom: 15px;
+        background: #fff;
+        border-radius: 5px;
+        box-shadow: 0 0 5px rgba(0,0,0,0.1);
+        padding: 10px;
+      }
+
+      td {
+        padding: 5px 10px;
+        border: none;
+      }
+
+      td::before {
+        content: attr(data-label);
+        font-weight: bold;
+        display: block;
+        color: #555;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Full-width Header -->
+<div class="header">
+  <div class="arrow">&#8592;</div>
+  <h2>Attendance</h2>
+  <div class="menu">&#9776;</div>
+</div>
+
+<!-- Container -->
+<div class="container">
+  <input class="date" type="date" value="2025-02-17">
+
+  <table>
+    <thead>
+      <tr>
+        <th></th>
+        <th colspan="2" style="text-align: center;">
+          <a href="#" class="export-link">CSV</a> |
+          <a href="#" class="export-link">PDF</a>
+        </th>
+      </tr>
+      <tr>
+        <th>Name</th>
+        <th>In</th>
+        <th>Out</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td data-label="Name">
+          <span class="name">Faius Mojumder Nahin</span><br>
+          <span class="role">Developer</span>
+        </td>
+        <td data-label="In">09:55</td>
+        <td data-label="Out">--</td>
+      </tr>
+      <tr>
+        <td data-label="Name">
+          <span class="name">Md. Sharek</span><br>
+          <span class="role">Developer</span>
+        </td>
+        <td data-label="In">09:43</td>
+        <td data-label="Out">17:30</td>
+      </tr>
+      <tr>
+        <td data-label="Name">
+          <span class="name">Istiyak Milon</span><br>
+          <span class="role">Developer</span>
+        </td>
+        <td data-label="In">09:25</td>
+        <td data-label="Out">19:23</td>
+      </tr>
+      <tr>
+        <td data-label="Name">
+          <span class="name">Md. Rakibul Islam</span><br>
+          <span class="role">Developer</span>
+        </td>
+        <td data-label="In" class="late">10:55</td>
+        <td data-label="Out">--</td>
+      </tr>
+      <tr>
+        <td data-label="Name">
+          <span class="name">Md. Sorif</span><br>
+          <span class="role">Developer</span>
+        </td>
+        <td data-label="In">10:00</td>
+        <td data-label="Out">17:42</td>
+      </tr>
+      <tr>
+        <td data-label="Name">
+          <span class="name">Md. Mobusshar Islam</span><br>
+          <span class="role">Developer</span>
+        </td>
+        <td data-label="In">09:50</td>
+        <td data-label="Out">18:02</td>
+      </tr>
+      <tr>
+        <td data-label="Name">
+          <span class="name">Md. Ratul</span><br>
+          <span class="role">Developer</span>
+        </td>
+        <td data-label="In" class="late">10:15</td>
+        <td data-label="Out">17:00</td>
+      </tr>
+      <tr>
+        <td data-label="Name">
+          <span class="name">Md. Atik</span><br>
+          <span class="role">Developer</span>
+        </td>
+        <td data-label="In" class="late">10:07</td>
+        <td data-label="Out">18:09</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+</body>
+</html>

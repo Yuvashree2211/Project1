@@ -1,0 +1,183 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Late Comers</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      padding: 0;
+      margin: 0;
+    }
+
+    .header {
+      background-color: #4caf50;
+      color: white;
+      padding: 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .header-title {
+      font-size: 18px;
+      font-weight: bold;
+      text-align: center;
+      flex: 1;
+    }
+
+    .back-btn, .menu-btn {
+      font-size: 20px;
+      cursor: pointer;
+    }
+
+    .container {
+      padding: 15px;
+    }
+
+    .top-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .date-select {
+      padding: 8px;
+      font-size: 14px;
+    }
+
+    .export-links {
+      font-size: 12px;
+      text-align: right;
+    }
+
+    .export-links a {
+      margin-left: 10px;
+      text-decoration: none;
+      color: #007bff;
+    }
+
+    .table-box {
+      background: white;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 0 4px rgba(0,0,0,0.1);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+
+    th, td {
+      padding: 10px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #f9f9f9;
+      text-align: left;
+    }
+
+    .employee-name {
+      font-weight: bold;
+    }
+
+    .employee-role {
+      font-size: 12px;
+      color: #777;
+    }
+
+    .late-time {
+      color: red;
+      font-weight: bold;
+    }
+
+    @media (max-width: 600px) {
+      .top-row {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .export-links {
+        text-align: left;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="back-btn">&#8592;</div>
+    <div class="header-title">Late Comers</div>
+    <div class="menu-btn">&#9776;</div>
+  </div>
+
+  <div class="container">
+    <div class="top-row">
+      <select class="date-select">
+        <option selected>17-Feb-2025</option>
+        <!-- Add more dates if needed -->
+      </select>
+
+      <div class="export-links">
+        Total Employees: 3
+        <a href="#">CSV</a> |
+        <a href="#">PDF</a>
+      </div>
+    </div>
+
+    <div class="table-box">
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Time In</th>
+            <th>Late By</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <div class="employee-name">Md. Rakibul Islam</div>
+              <div class="employee-role">Developer</div>
+            </td>
+            <td>10:55</td>
+            <td class="late-time">55:43</td>
+          </tr>
+          <tr>
+            <td>
+              <div class="employee-name">Md. Ratul</div>
+              <div class="employee-role">Developer</div>
+            </td>
+            <td>10:15</td>
+            <td class="late-time">15:20</td>
+          </tr>
+          <tr>
+            <td>
+              <div class="employee-name">Md. Atik</div>
+              <div class="employee-role">Developer</div>
+            </td>
+            <td>10:07</td>
+            <td class="late-time">07:33</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</body>
+</html>
