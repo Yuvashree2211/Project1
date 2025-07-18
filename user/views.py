@@ -79,3 +79,9 @@ def announcements_view(request):
 
 def documents_view(request):
     return render(request, 'documents.html')
+
+def welcome_view(request):
+    return render(request, 'welcome.html')
+
+def register_view(request):
+    return render(request, 'register.html')
