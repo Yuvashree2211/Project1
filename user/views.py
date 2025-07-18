@@ -95,3 +95,9 @@ def logout_view(request):
 
 def notification_view(request):
     return render(request, 'notification.html')
+def attendence_view(request):
+    return render(request, 'attendence.html')
+def task_view(request):
+    return render(request, 'task.html')
+def leave_view(request):
+    return render(request, 'task.html')

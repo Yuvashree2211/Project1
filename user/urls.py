@@ -40,4 +40,7 @@ urlpatterns = [
     path('login/',views.login_view, name='login'),
     path('logout/', views.logout_view, name='logout'),
     path('notification/', views.notification_view, name='notification'),
+    path('attendence/',views.attendence_view, name='attendence'),
+    path('task/', views.task_view, name='task'),
+    path('leave/', views.leave_view, name='leave'),
 ]
