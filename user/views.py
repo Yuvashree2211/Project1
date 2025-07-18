@@ -69,3 +69,13 @@ def department_view(request):
 
 def profile_view(request):
     return render(request, 'profile.html')
+
+
+def payroll_view(request):
+    return render(request, 'payroll.html')
+
+def announcements_view(request):
+    return render(request, 'announcements.html')
+
+def documents_view(request):
+    return render(request, 'documents.html')

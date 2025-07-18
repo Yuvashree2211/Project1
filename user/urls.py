@@ -23,11 +23,6 @@ from . import views
 
 urlpatterns = [
     path('', index_view, name='index'),
-
-
- 
-
-   
     path('', login_page, name='login'),  # Set root URL to show login page
     path('index/', index_view, name='index'),
     path('rolechoice/', role_choice_view, name='role_choice'),
@@ -37,4 +32,7 @@ urlpatterns = [
     path('update/', views.update_view, name='update'),
     path('department/', views.department_view, name='department'),
     path('profile/', views.profile_view, name='profile'),
+    path('payroll/', views.payroll_view, name='payroll'),
+    path('announcements/', views.announcements_view, name='announcements'),
+    path('documents/', views.documents_view, name='documents'),
 ]
