@@ -16,13 +16,18 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from user.views import index_view, role_choice_view, login_page, user_signup,signin_view, dashboard_view,welcome_view, register_view,early_view,employe_view
+from user.views import index_view, role_choice_view, login_page, user_signup,signin_view, dashboard_view
 from django.urls import path, include
 from user.views import *
 from . import views
 
 urlpatterns = [
     path('', index_view, name='index'),
+
+
+ 
+
+   
     path('', login_page, name='login'),  # Set root URL to show login page
     path('index/', index_view, name='index'),
     path('rolechoice/', role_choice_view, name='role_choice'),
@@ -32,17 +37,4 @@ urlpatterns = [
     path('update/', views.update_view, name='update'),
     path('department/', views.department_view, name='department'),
     path('profile/', views.profile_view, name='profile'),
-    path('payroll/', views.payroll_view, name='payroll'),
-    path('announcements/', views.announcements_view, name='announcements'),
-    path('documents/', views.documents_view, name='documents'),
-    path('welcome/', views.welcome_view, name='welcome'),
-    path('register/', views.register_view, name='register'),
-    path('login/',views.login_view, name='login'),
-    path('logout/', views.logout_view, name='logout'),
-    path('notification/', views.notification_view, name='notification'),
-    path('attendence/',views.attendence_view, name='attendence'),
-    path('task/', views.task_view, name='task'),
-    path('leave/', views.leave_view, name='leave'),
-    path('early/', views.early_view, name='early'),
-    path('employe/', views.employe_view, name='employe'),
-]
+    path('latecomers/', views.latecomers_view, name='latecomers'),

@@ -71,37 +71,6 @@ def profile_view(request):
     return render(request, 'profile.html')
 
 
-def payroll_view(request):
-    return render(request, 'payroll.html')
+def latecomers_view(request):
+    return render(request, 'user/latecomers.html')
 
-def announcements_view(request):
-    return render(request, 'announcements.html')
-
-def documents_view(request):
-    return render(request, 'documents.html')
-
-def welcome_view(request):
-    return render(request, 'welcome.html')
-
-def register_view(request):
-    return render(request, 'register.html')
-
-
-def login_view(request):
-    return render(request, 'login.html')
-
-def logout_view(request):
-    return render(request, 'logout.html')
-
-def notification_view(request):
-    return render(request, 'notification.html')
-def attendence_view(request):
-    return render(request, 'attendence.html')
-def task_view(request):
-    return render(request, 'task.html')
-def leave_view(request):
-    return render(request, 'leave.html')
-def early_view(request):
-    return render(request, 'early.html')    
-def employe_view(request):
-    return render(request, 'employe.html')    
