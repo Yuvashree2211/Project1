@@ -100,4 +100,4 @@ def attendence_view(request):
 def task_view(request):
     return render(request, 'task.html')
 def leave_view(request):
-    return render(request, 'task.html')
+    return render(request, 'leave.html')
