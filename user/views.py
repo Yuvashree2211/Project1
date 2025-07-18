@@ -58,3 +58,14 @@ def dashboard_view(request):
         return redirect('signin')
     return render(request, "dashboard.html")
   
+
+
+def update_view(request):
+
+    return render(request, 'update.html')
+
+def department_view(request):
+    return render(request, 'department.html')
+
+def profile_view(request):
+    return render(request, 'profile.html')

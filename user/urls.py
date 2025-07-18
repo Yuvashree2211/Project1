@@ -19,16 +19,22 @@ from django.urls import path
 from user.views import index_view, role_choice_view, login_page, user_signup,signin_view, dashboard_view
 from django.urls import path, include
 from user.views import *
+from . import views
+
 urlpatterns = [
     path('', index_view, name='index'),
-    path('admin/', admin.site.urls),
-]
+
+
  
-urlpatterns = [
-    path('admin/', admin.site.urls),
+
+   
     path('', login_page, name='login'),  # Set root URL to show login page
     path('index/', index_view, name='index'),
     path('rolechoice/', role_choice_view, name='role_choice'),
     path('signup/',user_signup, name='signup'),
     path('signin/', signin_view, name='signin'),
     path('dashboard/',dashboard_view, name='dashboard'),
+    path('update/', views.update_view, name='update'),
+    path('department/', views.department_view, name='department'),
+    path('profile/', views.profile_view, name='profile'),
+]
