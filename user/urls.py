@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from user.views import index_view, role_choice_view, login_page, user_signup,signin_view, dashboard_view,welcome_view, register_view
+from user.views import index_view, role_choice_view, login_page, user_signup,signin_view, dashboard_view,welcome_view, register_view,early_view,employe_view
 from django.urls import path, include
 from user.views import *
 from . import views
@@ -43,4 +43,6 @@ urlpatterns = [
     path('attendence/',views.attendence_view, name='attendence'),
     path('task/', views.task_view, name='task'),
     path('leave/', views.leave_view, name='leave'),
+    path('early/', views.early_view, name='early'),
+    path('employe/', views.employe_view, name='employe'),
 ]

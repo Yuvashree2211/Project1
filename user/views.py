@@ -101,3 +101,7 @@ def task_view(request):
     return render(request, 'task.html')
 def leave_view(request):
     return render(request, 'leave.html')
+def early_view(request):
+    return render(request, 'early.html')    
+def employe_view(request):
+    return render(request, 'employe.html')    
