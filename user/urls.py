@@ -38,3 +38,7 @@ urlpatterns = [
     path('department/', views.department_view, name='department'),
     path('profile/', views.profile_view, name='profile'),
     path('latecomers/', views.latecomers_view, name='latecomers'),
+    path('payroll/', views.payroll_view, name='payroll'),
+    path('announcements/', views.announcements_view, name='announcements'),
+    path('documents/', views.documents_view, name='documents'),
+]
