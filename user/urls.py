@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from user.views import index_view, role_choice_view, login_page, user_signup,signin_view, dashboard_view,welcome_view, register_view
+from user.views import index_view, role_choice_view, login_page, user_signup,signin_view, dashboard_view,welcome_view, register_view,log_view
 from django.urls import path, include
 from user.views import *
 from . import views
@@ -37,4 +37,5 @@ urlpatterns = [
     path('documents/', views.documents_view, name='documents'),
     path('welcome/', views.welcome_view, name='welcome'),
     path('register/', views.register_view, name='register'),
+    path('log/', views.log_view, name='log'),
 ]

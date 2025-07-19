@@ -33,7 +33,6 @@ def user_signup(request):
     return render(request, 'signup.html', {'form': form})
 
 
-
 def signin_view(request):
     if request.method == "POST":
         email = request.POST['email']
@@ -58,7 +57,6 @@ def dashboard_view(request):
         return redirect('signin')
     return render(request, "dashboard.html")
   
-
 
 def update_view(request):
 
@@ -85,3 +83,6 @@ def welcome_view(request):
 
 def register_view(request):
     return render(request, 'register.html')
+
+def log_view(request):
+    return render(request, 'log.html')
