@@ -41,4 +41,6 @@ urlpatterns = [
     path('payroll/', views.payroll_view, name='payroll'),
     path('announcements/', views.announcements_view, name='announcements'),
     path('documents/', views.documents_view, name='documents'),
+    path('attend/', views.attend_view, name='attend'),
+    path('statistics/', views.statistics_view, name='statistics'),
 ]

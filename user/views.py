@@ -82,3 +82,9 @@ def announcements_view(request):
 
 def documents_view(request):
     return render(request, 'documents.html')
+
+def attend_view(request):
+    return render(request, 'Attend.html')
+
+def statistics_view(request):
+    return render(request, 'statistics.html')
