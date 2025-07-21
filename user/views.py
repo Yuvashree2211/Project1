@@ -71,13 +71,11 @@ def announcements_view(request):
 def documents_view(request):
     return render(request, 'documents.html')
 
-<<<<<<< HEAD
 def employee_login(request):
     return render(request, 'loginpage.html')
 
 def supervisor_login(request):
     return render(request, 'log.html') 
-=======
 from django.shortcuts import render, redirect
 from django.contrib.auth.hashers import make_password
 from .models import Users, Roles
@@ -128,4 +126,4 @@ def employe_view(request):
 
 def logout_view(request):
     return render(request, 'logout.html')
->>>>>>> b16a3c29820868cb98f3d775b2db58ad6d53c97e
+
