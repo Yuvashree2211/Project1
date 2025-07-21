@@ -111,3 +111,12 @@ def attend_view(request):
 
 def statistics_view(request):
     return render(request, 'statistics.html')
+
+def early_view(request):
+    return render(request, 'early.html')
+
+def employe_view(request):
+    return render(request, 'employe.html')
+
+def logout_view(request):
+    return render(request, 'logout.html')
