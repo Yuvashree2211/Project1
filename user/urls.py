@@ -23,7 +23,7 @@ from user.views import *
 from . import views
 
 urlpatterns = [
-    path('', index_view, name='index'),   
+   
     path('', login_page, name='login'),  # Set root URL to show login page
     path('index/', index_view, name='index'),
     path('rolechoice/', role_choice_view, name='role_choice'),

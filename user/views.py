@@ -18,26 +18,26 @@ def login_page(request):
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from django.contrib import messages
-from django.contrib.auth.models import User
+from .models import Users
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from django.contrib.auth.hashers import check_password
+from .models import Users
 
 def signin_view(request):
-    if request.method == "POST":
-        email = request.POST['email']
-        password = request.POST['password']
-
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        password = request.POST.get('password')
         try:
-            user_obj = Users.objects.get(email=email)
-            username = user_obj.username
-            user = authenticate(request, username=username, password=password)
-            if user is not None:
-                login(request, user)
-                return redirect('dashboard')
+            user = Users.objects.get(email=email)
+            if check_password(password, user.password):
+                request.session['user_id'] = user.id
+                return redirect('dashboard')  # Change 'dashboard' to your desired redirect
             else:
-                return render(request, "signin.html", {"error": "Invalid credentials"})
+                messages.error(request, 'Invalid email or password.')
         except Users.DoesNotExist:
-            return render(request, "signin.html", {"error": "User not found"})
-
-    return render(request, "signin.html")
+            messages.error(request, 'Invalid email or password.')
+    return render(request, 'signin.html')
 
 
 def dashboard_view(request):

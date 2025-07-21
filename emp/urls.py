@@ -25,7 +25,7 @@ from user import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', index_view, name='index'),
+     
     path('', include('user.urls')),  # Include your app's routes
     path('', login_page, name='login'),  # Set root URL to show login page
  
