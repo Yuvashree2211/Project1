@@ -16,10 +16,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from user.views import index_view, role_choice_view, login_page, user_signup,signin_view, dashboard_view
+from user.views import user_signup,signin_view, dashboard_view
 from django.urls import path, include
 from user.views import *
-from . import views
+from .views import index_view, role_choice_view
+from . import views 
 
 urlpatterns = [
     path('', index_view, name='index'),
@@ -29,7 +30,7 @@ urlpatterns = [
 
    
     path('', login_page, name='login'),  # Set root URL to show login page
-    path('index/', index_view, name='index'),
+    path('', index_view, name='index'),
     path('rolechoice/', role_choice_view, name='role_choice'),
     path('signup/',user_signup, name='signup'),
     path('signin/', signin_view, name='signin'),
@@ -41,4 +42,6 @@ urlpatterns = [
     path('payroll/', views.payroll_view, name='payroll'),
     path('announcements/', views.announcements_view, name='announcements'),
     path('documents/', views.documents_view, name='documents'),
+    path('employee-login/', views.employee_login, name='employee_login'),
+    path('supervisor-login/', views.supervisor_login, name='supervisor_login'),
 ]

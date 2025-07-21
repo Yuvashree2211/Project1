@@ -3,13 +3,14 @@ from django.shortcuts import redirect
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.hashers import make_password
 from .forms import UserSignupForm
-from .models import Users, Roles
+from .models import Roles
 
 def index_view(request):
     return render(request, 'index.html')
 
 def role_choice_view(request):
-    return render(request, 'rolechoice.html')
+    roles = Roles.objects.all()
+    return render(request, 'rolechoice.html', {'roles': roles})
 
 def login_page(request):
     return render(request, 'loginpage.html')
@@ -82,3 +83,9 @@ def announcements_view(request):
 
 def documents_view(request):
     return render(request, 'documents.html')
+
+def employee_login(request):
+    return render(request, 'loginpage.html')
+
+def supervisor_login(request):
+    return render(request, 'log.html') 

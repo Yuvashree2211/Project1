@@ -4,103 +4,104 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Choose Role</title>
+  <title>Choose Your Role</title>
   <style>
-    * {
+    body {
       margin: 0;
       padding: 0;
-      box-sizing: border-box;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: white;
     }
 
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #ffffff;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 20px;
+    .container {
+      text-align: center;
     }
 
     .top-image {
-      width: 90%;
       max-width: 400px;
-      margin-top: 20px;
+      height: auto;
+      margin-bottom: 40px;
     }
 
-    .role-buttons {
+    .role-icons {
       display: flex;
       justify-content: center;
-      gap: 30px;
-      margin: 40px 0;
-      flex-wrap: wrap;
+      gap: 80px;
+      margin-bottom: 40px;
     }
 
-    .role-buttons .role {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      cursor: pointer;
-      transition: transform 0.2s ease;
+    .role {
+      text-align: center;
     }
 
-    .role-buttons .role:hover {
-      transform: scale(1.05);
-    }
-
-    .role-buttons .role img {
-      width: 80px;
-      height: 80px;
-      object-fit: contain;
-      background-color: #4CAF50;
-      padding: 10px;
+    .role img {
+      width: 120px;
+      height: 120px;
       border-radius: 50%;
+      padding: 10px;
+      background-color: #5cc267;
+      transition: transform 0.3s;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     }
 
-    .role-buttons .role span {
+    .role img:hover {
+      transform: scale(1.1);
+      cursor: pointer;
+    }
+
+    .role p {
       margin-top: 10px;
+      font-size: 18px;
       font-weight: bold;
       color: #333;
     }
 
     .bottom-image {
-      width: 100px;
-      max-width: 150px;
-      margin-bottom: 20px;
+      max-width: 120px;
+      height: auto;
     }
 
-    /* Responsive */
-    @media (max-width: 600px) {
+    @media (max-width: 768px) {
       .top-image {
-        max-width: 100%;
+        max-width: 250px;
       }
-
-      .bottom-image {
+      .role img {
         width: 80px;
+        height: 80px;
       }
-
-      .role-buttons .role img {
-        width: 70px;
-        height: 70px;
+      .role-icons {
+        gap: 40px;
+      }
+      .bottom-image {
+        max-width: 80px;
       }
     }
   </style>
 </head>
 <body>
+  <div class="container">
+    <img src="{% static 'illustration.png' %}" alt="Illustration" class="top-image" />
 
-  <img src="{% static 'illustration.png' %}" alt="Illustration" class="top-image" />
+    <div class="role-icons">
+      <div class="role">
+        <a href="{% url 'employee_login' %}" class="btn employee">Employee</a>
+          <img src="{% static 'employee-icon.png' %}" alt="Employee Icon" />
+        </a>
+        <p>Employee</p>
+      </div>
+      <div class="role">
+        <a href="{% url 'supervisor_login' %}" class="btn supervisor">Supervisor</a>
+          <img src="{% static 'supervisor-icon.png' %}" alt="Supervisor Icon" />
+        </a>
+        <p>Supervisor</p>
+      </div>
+    </div>
 
-  <div class="role-buttons">
-    <div class="role">
-      <img src="{% static 'employee-icon.png' %}" alt="Employee Icon" />
-      <span>Employee</span>
-    </div>
-    <div class="role">
-      <img src="{% static 'supervisor-icon.png' %}" alt="Supervisor Icon" />
-      <span>Supervisor</span>
-    </div>
+    <img src="{% static 'handshake.png' %}" alt="Handshake" class="bottom-image" />
   </div>
-
-  <img src="{% static 'handshake.png' %}" alt="Handshake" class="bottom-image" />
-
 </body>
 </html>
