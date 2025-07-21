@@ -17,7 +17,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from user.views import index_view, role_choice_view, login_page, user_signup,signin_view, dashboard_view
+from user.views import index_view, role_choice_view, login_page,user_signup,signin_view, dashboard_view
 from django.urls import path, include
 from user.views import *
 from user import views  
