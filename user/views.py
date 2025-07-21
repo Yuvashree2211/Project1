@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.shortcuts import redirect
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.hashers import make_password
+from django.contrib.auth.decorators import login_required
 from .forms import UserSignupForm
 from .models import Roles
 
@@ -15,51 +16,35 @@ def role_choice_view(request):
 def login_page(request):
     return render(request, 'loginpage.html')
 
-def user_signup(request):
-    if request.method == 'POST':
-        form = UserSignupForm(request.POST, request.FILES)
-        if form.is_valid():
-            user = form.save(commit=False)
-            user.password = make_password(form.cleaned_data['password'])
-
-            # Set default role
-            default_role = Roles.objects.filter(role_name='User').first()
-            user.role = default_role
-
-            user.status = "Active"
-            user.save()
-            return redirect('login')  # or any success page
-    else:
-        form = UserSignupForm()
-    return render(request, 'signup.html', {'form': form})
-
-
+from django.shortcuts import render, redirect
+from django.contrib.auth import authenticate, login
+from django.contrib import messages
+from .models import Users
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from django.contrib.auth.hashers import check_password
+from .models import Users
 
 def signin_view(request):
-    if request.method == "POST":
-        email = request.POST['email']
-        password = request.POST['password']
-
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        password = request.POST.get('password')
         try:
-            user_obj = Users.objects.get(email=email)
-            username = user_obj.username
-            user = authenticate(request, username=username, password=password)
-            if user is not None:
-                login(request, user)
-                return redirect('dashboard')
+            user = Users.objects.get(email=email)
+            if check_password(password, user.password):
+                request.session['user_id'] = user.id
+                return redirect('dashboard')  # Change 'dashboard' to your desired redirect
             else:
-                return render(request, "signin.html", {"error": "Invalid credentials"})
+                messages.error(request, 'Invalid email or password.')
         except Users.DoesNotExist:
-            return render(request, "signin.html", {"error": "User not found"})
+            messages.error(request, 'Invalid email or password.')
+    return render(request, 'signin.html')
 
-    return render(request, "signin.html")
 
 def dashboard_view(request):
     if not request.user.is_authenticated:
         return redirect('signin')
     return render(request, "dashboard.html")
-  
-
 
 def update_view(request):
 
@@ -68,7 +53,7 @@ def update_view(request):
 def department_view(request):
     return render(request, 'department.html')
 
-def profile_view(request):
+def profile_view(request): 
     return render(request, 'profile.html')
 
 
@@ -78,14 +63,69 @@ def latecomers_view(request):
 def payroll_view(request):
     return render(request, 'payroll.html')
 
+
 def announcements_view(request):
     return render(request, 'announcements.html')
+
 
 def documents_view(request):
     return render(request, 'documents.html')
 
+<<<<<<< HEAD
 def employee_login(request):
     return render(request, 'loginpage.html')
 
 def supervisor_login(request):
     return render(request, 'log.html') 
+=======
+from django.shortcuts import render, redirect
+from django.contrib.auth.hashers import make_password
+from .models import Users, Roles
+from .forms import UserSignupForm
+
+def user_signup(request):
+    if request.method == 'POST':
+        form = UserSignupForm(request.POST, request.FILES)
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.password = make_password(form.cleaned_data['password'])
+
+            # Assign default role
+            default_role = Roles.objects.filter(role_name='User').first()
+            user.role = default_role
+            user.status = "Active"
+            user.save()
+
+            # Redirect to register.html after successful signup
+            return redirect('register')  # make sure 'register' is defined in urls.py
+    else:
+        form = UserSignupForm()
+
+    return render(request, 'signup.html', {'form': form})
+
+
+def welcome_page(request):
+    return render(request, 'welcome.html')
+
+def redirect_to_welcome(request):
+    return redirect('welcome')
+
+
+def register_view(request):
+    return render(request, 'register.html')
+
+def attend_view(request):
+    return render(request, 'Attend.html')
+
+def statistics_view(request):
+    return render(request, 'statistics.html')
+
+def early_view(request):
+    return render(request, 'early.html')
+
+def employe_view(request):
+    return render(request, 'employe.html')
+
+def logout_view(request):
+    return render(request, 'logout.html')
+>>>>>>> b16a3c29820868cb98f3d775b2db58ad6d53c97e
