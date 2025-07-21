@@ -98,8 +98,16 @@
     <!-- Header with Figma-style profile image -->
     <div class="sidebar-header">
       <!-- Replace this image URL with your exact Figma image if needed -->
-      <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="Profile">
-      <h5>Hii Kabir</h5>
+     <a href="{% url 'update' %}">
+  <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="Profile" style="cursor: pointer;">
+</a>
+
+
+
+
+
+
+      <h5>Hii there,</h5>
     </div>
 
     <!-- Menu Items -->
@@ -110,9 +118,19 @@
     <div class="menu-item"><i class="bi bi-people-fill"></i>Attendance</div>
     <div class="menu-item"><i class="bi bi-card-checklist"></i>Tasks</div>
     <div class="menu-item"><i class="bi bi-person-bounding-box"></i>Leave</div>
-    <div class="menu-item"><i class="bi bi-cash-coin"></i>Payroll</div>
-    <div class="menu-item"><i class="bi bi-megaphone-fill"></i>Announcements</div>
-    <div class="menu-item"><i class="bi bi-file-earmark-text"></i>Documents</div>
+    <div class="menu-item">
+  <i class="bi-cash-coin"></i>
+    <a href="/payroll/" style="text-decoration: none; color: inherit;">Payroll</a>
+    </div>
+    <div class="menu-item">
+  <i class="bi-megaphone-fill"></i>
+  <a href="/announcements/" style="text-decoration: none; color: inherit;">Announcements</a>
+</div>
+<div class="menu-item">
+  <i class="bi-file-earmark-text"></i>
+  <a href="/documents/" style="text-decoration: none; color: inherit;">Documents</a>
+</div>
+   
     <div class="menu-item"><i class="bi bi-bell-fill"></i>Notifications</div>
     <div class="menu-item"><i class="bi bi-power"></i>Logout</div>
   </div>
