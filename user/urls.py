@@ -16,13 +16,22 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+<<<<<<< HEAD
 from user.views import index_view, role_choice_view, login_page,user_signup,signin_view, dashboard_view,welcome_page, register_view
+=======
+from user.views import index_view, role_choice_view, login_page, user_signup,signin_view, dashboard_view
+>>>>>>> f1abc81db70eab1e5686b4b48881f5a96cf6f6c7
 from django.urls import path, include
 from user.views import *
 from . import views
 
 urlpatterns = [
     path('', index_view, name='index'),
+
+
+ 
+
+   
     path('', login_page, name='login'),  # Set root URL to show login page
     path('index/', index_view, name='index'),
     path('rolechoice/', role_choice_view, name='role_choice'),
@@ -32,10 +41,17 @@ urlpatterns = [
     path('update/', views.update_view, name='update'),
     path('department/', views.department_view, name='department'),
     path('profile/', views.profile_view, name='profile'),
+    path('latecomers/', views.latecomers_view, name='latecomers'),
     path('payroll/', views.payroll_view, name='payroll'),
     path('announcements/', views.announcements_view, name='announcements'),
     path('documents/', views.documents_view, name='documents'),
+<<<<<<< HEAD
     path('login/', views.redirect_to_welcome, name='login'),
     path('welcome/', views.welcome_page, name='welcome'),
     path('register/', views.register_view, name='register'),
 ]
+=======
+    path('attend/', views.attend_view, name='attend'),
+    path('statistics/', views.statistics_view, name='statistics'),
+]
+>>>>>>> f1abc81db70eab1e5686b4b48881f5a96cf6f6c7

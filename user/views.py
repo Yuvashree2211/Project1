@@ -56,6 +56,9 @@ def profile_view(request):
     return render(request, 'profile.html')
 
 
+def latecomers_view(request):
+    return render(request, 'user/latecomers.html')
+
 def payroll_view(request):
     return render(request, 'payroll.html')
 
@@ -67,6 +70,7 @@ def announcements_view(request):
 def documents_view(request):
     return render(request, 'documents.html')
 
+<<<<<<< HEAD
 from django.shortcuts import render, redirect
 from django.contrib.auth.hashers import make_password
 from .models import Users, Roles
@@ -103,3 +107,10 @@ def redirect_to_welcome(request):
 def register_view(request):
     return render(request, 'register.html')
 
+=======
+def attend_view(request):
+    return render(request, 'Attend.html')
+
+def statistics_view(request):
+    return render(request, 'statistics.html')
+>>>>>>> f1abc81db70eab1e5686b4b48881f5a96cf6f6c7
