@@ -70,7 +70,7 @@
     }
 
     .btn-save:hover {
-      background-color: #4CAF50;
+      background-color: #45a049;
     }
 
     .btn-edit {
@@ -92,75 +92,113 @@
   <span>&#9776;</span>
 </div>
 
-  <!-- Payroll Table -->
-  <div class="table-wrapper">
-    <table class="table table-bordered text-center">
-      <thead>
-        <tr>
-          <th>Payroll</th>
-          <th>Month</th>
-          <th>Net Pay</th>
-          <th>Status</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>1</td>
-          <td>February</td>
-          <td>2750</td>
-          <td><button class="btn btn-edit">Edit</button></td>
-        </tr>
-        <tr>
-          <td>2</td>
-          <td>January</td>
-          <td>3000</td>
-          <td><button class="btn btn-edit">Edit</button></td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+<!-- Success & Error Messages -->
+<div class="container">
+  {% if messages %}
+    {% for message in messages %}
+      <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+    {% endfor %}
+  {% endif %}
+</div>
 
-  <!-- Add Payroll Form -->
-  <div class="form-box">
-    <h5>Add Payroll</h5>
-    <form method="post" action="{% url 'add_payroll' %}">
-      {% csrf_token %}
-      <div class="mb-2">
-        <label>User</label>
-        <input type="text" name="user_id" class="form-control" required>
-      </div>
-      <div class="mb-2">
-        <label>Month</label>
-        <input type="text" name="month" class="form-control" required>
-      </div>
-      <div class="mb-2">
-        <label>Base Salary</label>
-        <input type="text" name="base_salary" class="form-control" required>
-      </div>
-      <div class="mb-2">
-        <label>Bonus</label>
-        <input type="text" name="bonus" class="form-control">
-      </div>
-      <div class="mb-2">
-        <label>Deductions</label>
-        <input type="text" name="deductions" class="form-control">
-      </div>
-      <div class="mb-2">
-        <label>Net Pay</label>
-        <input type="text" name="net_pay" class="form-control" required>
-      </div>
-      <div class="mb-2">
-        <label>Status</label>
-        <input type="text" name="status" class="form-control" required>
-      </div>
-      <div class="mb-3">
-        <label>Paid On</label>
-        <input type="date" name="paid_on" class="form-control">
-      </div>
-      <button type="submit" class="btn btn-save">Save</button>
-    </form>
-  </div>
+<!-- Payroll Table -->
+<div class="table-wrapper">
+  <table class="table table-bordered text-center">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Employee</th>
+        <th>Month</th>
+        <th>Net Pay</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for payroll in payrolls %}
+        <tr>
+          <td>{{ forloop.counter }}</td>
+          <td>{{ payroll.user.full_name }}</td>
+          <td>{{ payroll.month }}</td>
+          <td>{{ payroll.net_pay }}</td>
+          <td>{{ payroll.status }}</td>
+        </tr>
+      {% empty %}
+        <tr>
+          <td colspan="5">No payroll records found.</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Add Payroll Form -->
+<div class="form-box">
+  <h5>Add Payroll</h5>
+  <form method="post" action="{% url 'payroll' %}">
+    {% csrf_token %}
+    <div class="mb-2">
+      <label>User</label>
+      <select name="user_id" class="form-control" required>
+        <option value="">-- Select User --</option>
+        {% for user in users %}
+          <option value="{{ user.id }}">{{ user.full_name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="mb-2">
+      <label>Month</label>
+      <input type="text" name="month" class="form-control" required>
+    </div>
+    <div class="mb-2">
+      <label>Base Salary</label>
+      <input type="number" name="base_salary" class="form-control" step="0.01" required>
+    </div>
+    <div class="mb-2">
+      <label>Bonus</label>
+      <input type="number" name="bonus" class="form-control" step="0.01">
+    </div>
+    <div class="mb-2">
+      <label>Deductions</label>
+      <input type="number" name="deductions" class="form-control" step="0.01">
+    </div>
+    <div class="mb-2">
+      <label>Net Pay</label>
+      <input type="number" name="net_pay" class="form-control" step="0.01" required readonly>
+    </div>
+    <div class="mb-2">
+      <label>Status</label>
+      <input type="text" name="status" class="form-control" required>
+    </div>
+    <div class="mb-3">
+      <label>Paid On</label>
+      <input type="date" name="paid_on" class="form-control">
+    </div>
+    <button type="submit" class="btn btn-save">Save</button>
+  </form>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Auto-calculate Net Pay -->
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const base = document.querySelector('input[name="base_salary"]');
+    const bonus = document.querySelector('input[name="bonus"]');
+    const deductions = document.querySelector('input[name="deductions"]');
+    const net = document.querySelector('input[name="net_pay"]');
+
+    function calculateNetPay() {
+      const baseVal = parseFloat(base.value) || 0;
+      const bonusVal = parseFloat(bonus.value) || 0;
+      const deductVal = parseFloat(deductions.value) || 0;
+      net.value = (baseVal + bonusVal - deductVal).toFixed(2);
+    }
+
+    base.addEventListener('input', calculateNetPay);
+    bonus.addEventListener('input', calculateNetPay);
+    deductions.addEventListener('input', calculateNetPay);
+  });
+</script>
+
 </body>
 </html>

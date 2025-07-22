@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Employee Dashboard</title>
+  <title>Admin Dashboard</title>
   <style>
     :root {
       --primary: #4caf50;
@@ -141,7 +141,7 @@
     <a href="{% url 'payroll' %}" style="color: white; text-decoration: underline;">payroll</a>
 
     <div class="employee-info">
-      <div>Employee ID: {{ user_id|default:"123456" }}</div>
+      <div>Admin: {{ user_id|default:"123456" }}</div>
       <div>{{ user_name|default:"John Doe" }}</div>
     </div>
   </div>

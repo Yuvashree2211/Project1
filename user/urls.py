@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.urls import path, include
 from user.views import user_signup,signin_view, dashboard_view
 
-from user.views import index_view, role_choice_view, login_page,user_signup,signin_view, dashboard_view,welcome_page, register_view,early_view,employe_view,logout_view
+from user.views import index_view, role_choice_view, login_page,user_signup,signin_view, dashboard_view,welcome_page,early_view,employe_view,logout_view
 
 
 from django.urls import path, include
@@ -40,16 +40,14 @@ urlpatterns = [
     path('latecomers/', views.latecomers_view, name='latecomers'),
     path('payroll/', views.payroll_view, name='payroll'),
     path('announcements/', views.announcement_view, name='announcements'),
+    path('admin_dashboard/', views.admin_dashboard_view, name='admin_dashboard'),
     path('documents/', views.document_view, name='documents'),
-
     path('employee-login/', views.employee_login, name='employee_login'),
     path('supervisor-login/', views.supervisor_login, name='supervisor_login'),
     path('add_payroll/', views.add_payroll_view, name='add_payroll'),
-
     path('login/', views.redirect_to_welcome, name='login'),
     path('welcome/', views.welcome_page, name='welcome'),
-    path('register/', views.register_view, name='register'),
-    path('Attend/', views.Attend_view, name='Attend'),
+     path('Attend/', views.Attend_view, name='Attend'),
     path('statistics/', views.statistics_view, name='statistics'),
     path('early/', views.early_view, name='early'),
     path('employe/', views.employe_view, name='employe'),

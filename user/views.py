@@ -28,6 +28,49 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.hashers import check_password
 from .models import Users  # Assuming this is your custom user model
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from .models import Payroll
+from user.models import Users  # Adjust import as per your structure
+
+def payroll_view(request):
+    if request.method == 'POST':
+        try:
+            user = Users.objects.get(id=request.POST.get('user_id'))
+            month = request.POST.get('month')
+            base_salary = float(request.POST.get('base_salary', 0))
+            bonus = float(request.POST.get('bonus', 0))
+            deductions = float(request.POST.get('deductions', 0))
+            net_pay = float(request.POST.get('net_pay', base_salary + bonus - deductions))
+            status = request.POST.get('status')
+            paid_on = request.POST.get('paid_on')
+
+            Payroll.objects.create(
+                user=user,
+                month=month,
+                base_salary=base_salary,
+                bonus=bonus,
+                deductions=deductions,
+                net_pay=net_pay,
+                status=status,
+                paid_on=paid_on
+            )
+            users= Users.objects.all()
+            
+            messages.success(request, "Payroll added successfully.")
+            return redirect('payroll',{'users': users})
+        except Users.DoesNotExist:
+            messages.error(request, "Selected user not found.")
+        except Exception as e:
+            messages.error(request, f"Error: {str(e)}")
+
+    # Get all payroll entries and users for the form
+    payrolls = Payroll.objects.select_related('user').order_by('-paid_on')
+    users = Users.objects.all()
+    return render(request, 'payroll.html', {
+        'payrolls': payrolls,
+        'users': users
+    })
 
 def signin_view(request):
     if request.method == 'POST':
@@ -41,8 +84,13 @@ def signin_view(request):
                 # Set session manually
                 request.session['user_id'] = user.id
                 request.session['user_name'] = user.full_name
+                if user.role == 'employee':
+                    return redirect('admin_dashboard')
+                else:
+                    return redirect('dashboard')
                 messages.success(request, f"Welcome, {user.full_name}!")
-                return redirect('dashboard')
+               
+                
             else:
                 messages.error(request, 'Invalid email or password.')
         except Users.DoesNotExist:
@@ -62,6 +110,16 @@ def dashboard_view(request):
         'user_name': request.session.get('user_name'),
     }
     return render(request, 'dashboard.html', context)
+
+
+def admin_dashboard_view(request):
+    if 'user_id' not in request.session:
+        return redirect('signin')
+
+    context = {
+        'user_name': request.session.get('user_name'),
+    }
+    return render(request, 'admin.html', context)
 
 def update_view(request):
 

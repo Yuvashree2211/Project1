@@ -129,7 +129,7 @@ STATICFILES_DIRS = [
 ]
 MEDIA_URL = '/profiles/'  # this matches your desired URL prefix
 MEDIA_ROOT = BASE_DIR / 'media/profiles'  # folder where images will be stored
-
+ 
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field

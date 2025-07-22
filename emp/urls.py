@@ -17,8 +17,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-
 from user.views import index_view, role_choice_view, login_page,user_signup,signin_view, dashboard_view
+
 
 from django.urls import path, include
 from user import views
@@ -40,12 +40,9 @@ urlpatterns = [
     path('update/', views.update_view, name='update'),
     path('department/', views.department_view, name='department'),
     path('profile/', views.profile_view, name='profile'), 
-    from django.urls import path
-from . import views
-
-urlpatterns = [
+     
+ 
     path('attendance/', views.attendance, name='attendance'),
     path('leave/', views.leave, name='leave'),
-]
 
 ]
