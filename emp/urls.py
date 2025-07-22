@@ -40,4 +40,12 @@ urlpatterns = [
     path('update/', views.update_view, name='update'),
     path('department/', views.department_view, name='department'),
     path('profile/', views.profile_view, name='profile'), 
+    from django.urls import path
+from . import views
+
+urlpatterns = [
+    path('attendance/', views.attendance, name='attendance'),
+    path('leave/', views.leave, name='leave'),
+]
+
 ]
