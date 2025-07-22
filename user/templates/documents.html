@@ -30,15 +30,13 @@
 </head>
 <body>
 
-  <div class="container py-3">
-    <!-- Header -->
-    <div class="d-flex justify-content-between align-items-center header mb-4">
-      <div>
-        <button class="btn btn-light btn-sm">&#8592;</button>
-        <span class="ms-2 fw-bold">Documents</span>
-      </div>
-      <button class="btn btn-light btn-sm">&#9776;</button>
-    </div>
+  <div class="d-flex justify-content-between align-items-center header mb-4">
+  <div>
+    <a href="{% url 'profile' %}" class="btn btn-light btn-sm">&#8592;</a>
+    <span class="ms-2 fw-bold">Documents</span>
+  </div>
+  <button class="btn btn-light btn-sm">&#9776;</button>
+</div>
 
     <!-- Leave Table -->
     <div class="table-responsive mb-4">
