@@ -131,7 +131,7 @@ def redirect_to_welcome(request):
 def register_view(request):
     return render(request, 'register.html')
 
-def attend_view(request):
+def Attend_view(request):
     return render(request, 'Attend.html')
 
 def statistics_view(request):
@@ -146,3 +146,11 @@ def employe_view(request):
 def logout_view(request):
     return render(request, 'logout.html')
 
+def leave_view(request):
+    return render(request, 'leave.html')
+
+def notification_view(request):
+    return render(request, 'notification.html')
+
+def task_view(request):
+    return render(request, 'task.html')
