@@ -4,9 +4,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>WorkWise | Admin Dashboard</title>
+  <title>Supervisor Dashboard | WorkWise</title>
 
-  <!-- Tailwind & Bootstrap -->
+  <!-- Tailwind + Bootstrap -->
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
@@ -25,9 +25,9 @@
 </head>
 <body>
 
-  <!-- Header -->
+  <!-- Top Bar -->
   <div class="bg-indigo-700 text-white px-6 py-4 flex justify-between items-center">
-    <h1 class="text-xl font-bold">WorkWise Admin Dashboard</h1>
+    <h1 class="text-xl font-bold">WorkWise Supervisor Dashboard</h1>
     <a href="{% url 'logout' %}" class="text-white">Logout</a>
   </div>
 
@@ -40,89 +40,69 @@
       </button>
       <div class="collapse navbar-collapse justify-end" id="navbarNav">
         <ul class="navbar-nav">
-          <li class="nav-item"><a class="nav-link text-white" href="{% url 'welcome' %}">Welcome</a></li>
           <li class="nav-item"><a class="nav-link text-white" href="{% url 'profile' %}">Profile</a></li>
-          <li class="nav-item"><a class="nav-link text-white" href="{% url 'department' %}">Department</a></li>
-          <li class="nav-item"><a class="nav-link text-white" href="{% url 'employe' %}">Employees</a></li>
+          <li class="nav-item"><a class="nav-link text-white" href="{% url 'leave' %}">Leave</a></li>
+          <li class="nav-item"><a class="nav-link text-white" href="{% url 'latecomers' %}">Latecomers</a></li>
+          <li class="nav-item"><a class="nav-link text-white" href="{% url 'early' %}">Early Exit</a></li>
+          <li class="nav-item"><a class="nav-link text-white" href="{% url 'Attend' %}">Attendance</a></li>
+          <li class="nav-item"><a class="nav-link text-white" href="{% url 'task' %}">Tasks</a></li>
+          <li class="nav-item"><a class="nav-link text-white" href="{% url 'announcements' %}">Announcements</a></li>
+          <li class="nav-item"><a class="nav-link text-white" href="{% url 'notification' %}">Notifications</a></li>
         </ul>
       </div>
     </div>
   </nav>
 
-  <!-- Dashboard Content -->
+  <!-- Dashboard Cards -->
   <div class="container mx-auto px-4 py-10">
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
 
       <a href="{% url 'leave' %}" class="card bg-white p-5 rounded-lg shadow-sm text-decoration-none text-dark">
         <div class="d-flex justify-content-between mb-3">
-          <h5 class="fw-bold">Leave Management</h5>
-          <i class="bi bi-person-dash text-danger fs-3"></i>
+          <h5 class="fw-bold">Leave Requests</h5>
+          <i class="bi bi-person-dash-fill text-danger fs-3"></i>
         </div>
-        <p class="text-muted">Review and approve employee leave.</p>
+        <p class="text-muted">Approve/reject team leaves.</p>
       </a>
 
       <a href="{% url 'latecomers' %}" class="card bg-white p-5 rounded-lg shadow-sm text-decoration-none text-dark">
         <div class="d-flex justify-content-between mb-3">
-          <h5 class="fw-bold">Late Comers</h5>
+          <h5 class="fw-bold">Latecomers</h5>
           <i class="bi bi-clock-history text-warning fs-3"></i>
         </div>
-        <p class="text-muted">Track employee lateness statistics.</p>
+        <p class="text-muted">Check who arrived late.</p>
       </a>
 
       <a href="{% url 'early' %}" class="card bg-white p-5 rounded-lg shadow-sm text-decoration-none text-dark">
         <div class="d-flex justify-content-between mb-3">
-          <h5 class="fw-bold">Early Leavers</h5>
-          <i class="bi bi-door-open text-info fs-3"></i>
+          <h5 class="fw-bold">Early Exits</h5>
+          <i class="bi bi-door-open-fill text-primary fs-3"></i>
         </div>
-        <p class="text-muted">Monitor early exits from office.</p>
+        <p class="text-muted">Review early departures.</p>
       </a>
 
       <a href="{% url 'Attend' %}" class="card bg-white p-5 rounded-lg shadow-sm text-decoration-none text-dark">
-        <div class="d-flex justify-between mb-3">
+        <div class="d-flex justify-content-between mb-3">
           <h5 class="fw-bold">Attendance</h5>
-          <i class="bi bi-clipboard-check text-success fs-3"></i>
+          <i class="bi bi-calendar-check-fill text-success fs-3"></i>
         </div>
-        <p class="text-muted">Daily attendance records.</p>
-      </a>
-
-      <a href="{% url 'payroll' %}" class="card bg-white p-5 rounded-lg shadow-sm text-decoration-none text-dark">
-        <div class="d-flex justify-content-between mb-3">
-          <h5 class="fw-bold">Payroll</h5>
-          <i class="bi bi-currency-dollar text-success fs-3"></i>
-        </div>
-        <p class="text-muted">View payroll data and salaries.</p>
-      </a>
-
-      <a href="{% url 'add_payroll' %}" class="card bg-white p-5 rounded-lg shadow-sm text-decoration-none text-dark">
-        <div class="d-flex justify-content-between mb-3">
-          <h5 class="fw-bold">Add Payroll</h5>
-          <i class="bi bi-plus-circle text-primary fs-3"></i>
-        </div>
-        <p class="text-muted">Add new payroll entry.</p>
-      </a>
-
-      <a href="{% url 'statistics' %}" class="card bg-white p-5 rounded-lg shadow-sm text-decoration-none text-dark">
-        <div class="d-flex justify-content-between mb-3">
-          <h5 class="fw-bold">Statistics</h5>
-          <i class="bi bi-bar-chart-line text-info fs-3"></i>
-        </div>
-        <p class="text-muted">View performance analytics.</p>
+        <p class="text-muted">Daily attendance tracking.</p>
       </a>
 
       <a href="{% url 'task' %}" class="card bg-white p-5 rounded-lg shadow-sm text-decoration-none text-dark">
         <div class="d-flex justify-content-between mb-3">
           <h5 class="fw-bold">Tasks</h5>
-          <i class="bi bi-list-task text-primary fs-3"></i>
+          <i class="bi bi-clipboard-data-fill text-info fs-3"></i>
         </div>
-        <p class="text-muted">Assign or review employee tasks.</p>
+        <p class="text-muted">Manage assigned tasks.</p>
       </a>
 
       <a href="{% url 'announcements' %}" class="card bg-white p-5 rounded-lg shadow-sm text-decoration-none text-dark">
         <div class="d-flex justify-content-between mb-3">
           <h5 class="fw-bold">Announcements</h5>
-          <i class="bi bi-megaphone text-warning fs-3"></i>
+          <i class="bi bi-megaphone-fill text-warning fs-3"></i>
         </div>
-        <p class="text-muted">Post official company announcements.</p>
+        <p class="text-muted">Make team announcements.</p>
       </a>
 
       <a href="{% url 'notification' %}" class="card bg-white p-5 rounded-lg shadow-sm text-decoration-none text-dark">
@@ -130,24 +110,16 @@
           <h5 class="fw-bold">Notifications</h5>
           <i class="bi bi-bell-fill text-danger fs-3"></i>
         </div>
-        <p class="text-muted">Send or schedule alerts.</p>
-      </a>
-
-      <a href="{% url 'documents' %}" class="card bg-white p-5 rounded-lg shadow-sm text-decoration-none text-dark">
-        <div class="d-flex justify-content-between mb-3">
-          <h5 class="fw-bold">Documents</h5>
-          <i class="bi bi-folder2-open text-secondary fs-3"></i>
-        </div>
-        <p class="text-muted">Upload or view official files.</p>
+        <p class="text-muted">Send updates and alerts.</p>
       </a>
 
     </div>
   </div>
 
   <!-- Footer -->
-  <div class="fixed bottom-4 left-4 text-indigo-700 font-bold text-lg">WorkWise Admin</div>
+  <div class="fixed bottom-4 left-4 text-indigo-700 font-bold text-lg">WorkWise Supervisor</div>
 
-  <!-- Bootstrap Script -->
+  <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>

@@ -71,34 +71,47 @@ def payroll_view(request):
         'payrolls': payrolls,
         'users': users
     })
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from django.contrib.auth.hashers import check_password
+from .models import Users
 
 def signin_view(request):
     if request.method == 'POST':
         email = request.POST.get('email')
         password = request.POST.get('password')
-        context = {'email': email}  # To repopulate email in form
+        context = {'email': email}  # For repopulating email field on error
 
         try:
             user = Users.objects.get(email=email)
             if check_password(password, user.password):
-                # Set session manually
+                # Set session
                 request.session['user_id'] = user.id
                 request.session['user_name'] = user.full_name
-                if user.role == 'employee':
-                    return redirect('admin_dashboard')
-                else:
-                    return redirect('dashboard')
+                request.session['user_role'] = user.role.role_name
+
                 messages.success(request, f"Welcome, {user.full_name}!")
-               
-                
+
+                role_name = user.role.role_name.upper()
+
+                if role_name == 'ADMIN':
+                    return redirect('admin_dashboard')
+                elif role_name == 'SUPERVISOR':
+                    return redirect('supervisor_dashboard')  # or another dashboard
+                elif role_name == 'EMPLOYEE':
+                    return redirect('dashboard')  # intern/employee dashboard
+                else:
+                    messages.error(request, "Unauthorized role.")
             else:
                 messages.error(request, 'Invalid email or password.')
+
         except Users.DoesNotExist:
             messages.error(request, 'Invalid email or password.')
 
         return render(request, 'signin.html', context)
 
     return render(request, 'signin.html')
+
 
 from django.shortcuts import render, redirect
 
@@ -159,28 +172,63 @@ def supervisor_login(request):
     return render(request, 'log.html') 
 from django.shortcuts import render, redirect
 from django.contrib.auth.hashers import make_password
-from .models import Users, Roles
 from .forms import UserSignupForm
+from .models import Roles
+from django.shortcuts import render, redirect
+from .models import Users, Roles
+from django.contrib import messages
+from django.core.exceptions import ObjectDoesNotExist
+from django.db import IntegrityError
+from django.contrib.auth.hashers import make_password
 
-def user_signup(request):
+
+def signup_view(request):
     if request.method == 'POST':
-        form = UserSignupForm(request.POST, request.FILES)
-        if form.is_valid():
-            user = form.save(commit=False)
-            user.password = make_password(form.cleaned_data['password'])
+        full_name = request.POST.get('full_name')
+        email = request.POST.get('email')
+        phone = request.POST.get('phone')
+        role_name = request.POST.get('role')
+        password = request.POST.get('password')
+        profile_picture = request.FILES.get('profile_picture')
 
-            # Assign default role
-            default_role = Roles.objects.filter(role_name='User').first()
-            user.role = default_role
-            user.status = "Active"
-            user.save()
+        try:
+            # Get the Role object based on selected dropdown value
+            role = Roles.objects.get(role_name__iexact=role_name)
 
-            # Redirect to register.html after successful signup
-            return redirect('register')  # make sure 'register' is defined in urls.py
-    else:
-        form = UserSignupForm()
+            # Hash the password
+            hashed_password = make_password(password)
 
-    return render(request, 'signup.html', {'form': form})
+            # Create and save user
+            user = Users.objects.create(
+                full_name=full_name,
+                email=email,
+                phone=phone,
+                role=role,
+                password=hashed_password,
+                profile_picture=profile_picture,
+                status="Active"
+            )
+            messages.success(request, 'Account created successfully!')
+            return redirect('signin')  # or wherever you want to go after sign-up
+
+        except ObjectDoesNotExist:
+            messages.error(request, 'Selected role is invalid.')
+        except IntegrityError:
+            messages.error(request, 'User with this email already exists.')
+        except Exception as e:
+            messages.error(request, f'Something went wrong: {str(e)}')
+
+    return render(request, 'signup.html')
+
+def supervisor_dashboard_view(request):
+    if 'user_id' not in request.session:
+        return redirect('signin')
+
+    context = {
+        'user_name': request.session.get('user_name'),
+    }
+    return render(request, 'supervisor_dashboard.html', context)
+
 
 def add_payroll_view(request):
     if request.method == 'POST':
