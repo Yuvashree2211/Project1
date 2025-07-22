@@ -4,7 +4,7 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.decorators import login_required
 from .forms import UserSignupForm
-from .models import Roles
+from .models import Roles,Payroll
 from .forms import PayrollForm
 def index_view(request):
     return render(request, 'index.html')
@@ -24,27 +24,44 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.hashers import check_password
 from .models import Users
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from django.contrib.auth.hashers import check_password
+from .models import Users  # Assuming this is your custom user model
 
 def signin_view(request):
     if request.method == 'POST':
         email = request.POST.get('email')
         password = request.POST.get('password')
+        context = {'email': email}  # To repopulate email in form
+
         try:
             user = Users.objects.get(email=email)
             if check_password(password, user.password):
+                # Set session manually
                 request.session['user_id'] = user.id
-                return redirect('dashboard')  # Change 'dashboard' to your desired redirect
+                request.session['user_name'] = user.full_name
+                messages.success(request, f"Welcome, {user.full_name}!")
+                return redirect('dashboard')
             else:
                 messages.error(request, 'Invalid email or password.')
         except Users.DoesNotExist:
             messages.error(request, 'Invalid email or password.')
+
+        return render(request, 'signin.html', context)
+
     return render(request, 'signin.html')
 
+from django.shortcuts import render, redirect
 
 def dashboard_view(request):
-    if not request.user.is_authenticated:
+    if 'user_id' not in request.session:
         return redirect('signin')
-    return render(request, "dashboard.html")
+
+    context = {
+        'user_name': request.session.get('user_name'),
+    }
+    return render(request, 'dashboard.html', context)
 
 def update_view(request):
 
@@ -53,8 +70,25 @@ def update_view(request):
 def department_view(request):
     return render(request, 'department.html')
 
-def profile_view(request): 
-    return render(request, 'profile.html')
+from django.core.files.storage import FileSystemStorage
+
+def profile_view(request):
+    user_id = request.session.get('user_id')
+    if not user_id:
+        return redirect('signin')
+
+    try:
+        user = Users.objects.select_related('role').get(id=user_id)
+    except Users.DoesNotExist:
+        return redirect('signin')
+
+    if request.method == 'POST' and request.FILES.get('profile_picture'):
+        profile_picture = request.FILES['profile_picture']
+        user.profile_picture = profile_picture
+        user.save()
+        return redirect('profile')  # refresh the page
+
+    return render(request, 'profile.html', {'user': user})
 
 
 def latecomers_view(request):
@@ -90,6 +124,37 @@ def user_signup(request):
 
     return render(request, 'signup.html', {'form': form})
 
+def add_payroll_view(request):
+    if request.method == 'POST':
+        user_id = request.POST.get('user_id')
+        month = request.POST.get('month')
+        base_salary = request.POST.get('base_salary')
+        bonus = request.POST.get('bonus') or 0
+        deductions = request.POST.get('deductions') or 0
+        net_pay = request.POST.get('net_pay')
+        status = request.POST.get('status')
+        paid_on = request.POST.get('paid_on')
+
+        try:
+            user = Users.objects.get(id=user_id)
+            Payroll.objects.create(
+                user=user,
+                month=month,
+                base_salary=base_salary,
+                bonus=bonus,
+                deductions=deductions,
+                net_pay=net_pay,
+                status=status,
+                paid_on=paid_on
+            )
+            messages.success(request, "Payroll added successfully.")
+        except Users.DoesNotExist:
+            messages.error(request, "User not found.")
+        except Exception as e:
+            messages.error(request, f"Error: {e}")
+        return redirect('payroll')
+    else:
+        return redirect('payroll')
 
 def payroll_view(request):
     if request.method == 'POST':

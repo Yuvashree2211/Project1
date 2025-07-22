@@ -123,38 +123,39 @@
   <!-- Add Payroll Form -->
   <div class="form-box">
     <h5>Add Payroll</h5>
-    <form>
+    <form method="post" action="{% url 'add_payroll' %}">
+      {% csrf_token %}
       <div class="mb-2">
-        <label>User ID</label>
-        <input type="text" class="form-control" required>
+        <label>User</label>
+        <input type="text" name="user_id" class="form-control" required>
       </div>
       <div class="mb-2">
         <label>Month</label>
-        <input type="text" class="form-control" required>
+        <input type="text" name="month" class="form-control" required>
       </div>
       <div class="mb-2">
         <label>Base Salary</label>
-        <input type="text" class="form-control" required>
+        <input type="text" name="base_salary" class="form-control" required>
       </div>
       <div class="mb-2">
         <label>Bonus</label>
-        <input type="text" class="form-control">
+        <input type="text" name="bonus" class="form-control">
       </div>
       <div class="mb-2">
         <label>Deductions</label>
-        <input type="text" class="form-control">
+        <input type="text" name="deductions" class="form-control">
       </div>
       <div class="mb-2">
         <label>Net Pay</label>
-        <input type="text" class="form-control" required>
+        <input type="text" name="net_pay" class="form-control" required>
       </div>
       <div class="mb-2">
         <label>Status</label>
-        <input type="text" class="form-control" required>
+        <input type="text" name="status" class="form-control" required>
       </div>
       <div class="mb-3">
         <label>Paid On</label>
-        <input type="date" class="form-control">
+        <input type="date" name="paid_on" class="form-control">
       </div>
       <button type="submit" class="btn btn-save">Save</button>
     </form>

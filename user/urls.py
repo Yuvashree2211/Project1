@@ -30,7 +30,7 @@ urlpatterns = [
    
     path('', login_page, name='login'),  # Set root URL to show login page
     path('', index_view, name='index'),
-    path('rolechoice/', role_choice_view, name='role_choice'),
+    path('rolechoice/', signin_view, name='role_choice'),
     path('signup/',user_signup, name='signup'),
     path('signin/', signin_view, name='signin'),
     path('dashboard/',dashboard_view, name='dashboard'),
@@ -44,7 +44,7 @@ urlpatterns = [
 
     path('employee-login/', views.employee_login, name='employee_login'),
     path('supervisor-login/', views.supervisor_login, name='supervisor_login'),
-
+    path('add_payroll/', views.add_payroll_view, name='add_payroll'),
 
     path('login/', views.redirect_to_welcome, name='login'),
     path('welcome/', views.welcome_page, name='welcome'),

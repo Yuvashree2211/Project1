@@ -118,7 +118,7 @@
   <div class="signin-container">
     <h2>Welcome Back! Sign In</h2>
  <img src="../static/pic 2.png" alt="Illustration" class="illustration" />
-    <form action="{% url 'profile' %}" method="get">
+    <form method="post">
       {% csrf_token %}
 
       <!-- Email -->

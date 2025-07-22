@@ -5,116 +5,129 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Employee Dashboard</title>
   <style>
+    :root {
+      --primary: #4caf50;
+      --light: #ffffff;
+      --gray: #f0f0f0;
+      --dark: #333;
+      --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
     * {
       box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
 
     body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      background: #f4f4f4;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: var(--gray);
+      color: var(--dark);
     }
 
     .header {
-      background-color: #4caf50;
-      color: white;
-      padding: 20px;
+      background-color: var(--primary);
+      color: var(--light);
+      padding: 30px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       position: relative;
-    }
-
-    .header .profile {
-      text-align: center;
-    }
-
-    .header .profile-icon {
-      font-size: 40px;
-    }
-
-    .header .employee-info {
-      margin-top: 10px;
+      box-shadow: var(--shadow);
     }
 
     .menu-toggle {
       position: absolute;
       top: 20px;
       right: 20px;
-      font-size: 24px;
+      font-size: 28px;
       cursor: pointer;
     }
 
-    .dropdown {
-      position: absolute;
-      top: 70px;
-      left: 20px;
-      background-color: white;
-      border: 1px solid #ccc;
-      z-index: 10;
-      width: 150px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    .profile-icon {
+      font-size: 60px;
     }
 
-    .dropdown-item {
-      padding: 10px;
-      cursor: pointer;
+    .employee-info {
+      margin-top: 10px;
+      font-size: 18px;
+      text-align: center;
     }
 
-    .dropdown-item:hover {
-      background-color: #f1f1f1;
+    .employee-info div {
+      margin: 4px 0;
     }
 
     .content {
-      padding: 20px;
+      padding: 30px 20px;
     }
 
     .summary {
       display: flex;
-      justify-content: space-around;
-      margin: 20px 0;
       flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+      margin-bottom: 30px;
     }
 
     .summary-box {
-      background-color: white;
+      background-color: var(--light);
+      width: 150px;
       padding: 20px;
-      border-radius: 8px;
-      width: 120px;
       text-align: center;
-      margin: 10px;
-      box-shadow: 0 0 5px rgba(0,0,0,0.1);
+      border-radius: 10px;
+      box-shadow: var(--shadow);
+      transition: transform 0.2s ease;
+    }
+
+    .summary-box:hover {
+      transform: translateY(-5px);
+    }
+
+    .summary-box div:first-child {
+      font-size: 28px;
     }
 
     .leave-requests {
-      background-color: white;
-      padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0 0 5px rgba(0,0,0,0.1);
+      background-color: var(--light);
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: var(--shadow);
+      max-width: 900px;
+      margin: auto;
     }
 
-    select, .status-box {
+    label {
+      font-weight: bold;
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    select {
       width: 100%;
       padding: 10px;
-      margin-top: 10px;
-      margin-bottom: 10px;
+      margin-bottom: 20px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
     }
 
     .status {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
     }
 
     .status-box {
-      background-color: #f9f9f9;
-      border: 1px solid #ddd;
+      background-color: var(--gray);
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+      font-size: 16px;
     }
 
-    @media (min-width: 768px) {
-      .summary {
-        justify-content: space-between;
-      }
-
-      .status {
-        grid-template-columns: repeat(3, 1fr);
+    @media (max-width: 500px) {
+      .summary-box {
+        width: 100%;
       }
     }
   </style>
@@ -123,52 +136,59 @@
 
   <div class="header">
     <div class="menu-toggle">&#9776;</div>
-    <div class="profile">
-      <div class="profile-icon">👤</div>
-      <div class="employee-info">
-        <div>Employee ID : 123456</div>
-        <div></div>
-      </div>
-    </div>
+    <div class="profile-icon">👤</div>
+    <a href="{% url 'profile' %}" style="color: white; text-decoration: underline;">View Profile</a>
 
-    <!-- Dropdown -->
-    <div class="dropdown">
-      <div class="dropdown-item">Last 7 days</div>
-      <div class="dropdown-item">Last 14 days</div>
-      <div class="dropdown-item">Last 30 days</div>
-      <div class="dropdown-item">This month</div>
-      <div class="dropdown-item">Last month</div>
+    <div class="employee-info">
+      <div>Employee ID: {{ user_id|default:"123456" }}</div>
+      <div>{{ user_name|default:"John Doe" }}</div>
     </div>
   </div>
 
   <div class="content">
+
+    <!-- Summary Cards -->
     <div class="summary">
       <div class="summary-box">
-        <div>📆</div>
+        <div>📅</div>
         <div>Present</div>
         <div>✔️</div>
       </div>
       <div class="summary-box">
-        <div>📈</div>
+        <div>📉</div>
         <div>Leaves</div>
         <div>5%</div>
       </div>
+      <div class="summary-box">
+        <div>🕒</div>
+        <div>Late</div>
+        <div>2 days</div>
+      </div>
+      <div class="summary-box">
+        <div>🚪</div>
+        <div>Early Exit</div>
+        <div>2 days</div>
+      </div>
     </div>
 
+    <!-- Leave Requests and Status -->
     <div class="leave-requests">
       <label for="leaveDropdown">Leave Requests</label>
       <select id="leaveDropdown">
-        <option>Tap to view leave requests</option>
+        <option disabled selected>-- Tap to view leave requests --</option>
+        <option>Leave Request 1 - Pending</option>
+        <option>Leave Request 2 - Approved</option>
       </select>
 
       <div class="status">
-        <div class="status-box">Total Presents: 12 days</div>
-        <div class="status-box">Late: 2 days</div>
-        <div class="status-box">Early Leaves: 2 days</div>
-        <div class="status-box">Absent: 1 day</div>
-        <div class="status-box">Leaves: 1 day</div>
+        <div class="status-box">✅ Total Presents: 12 days</div>
+        <div class="status-box">⏰ Late: 2 days</div>
+        <div class="status-box">🏃 Early Leaves: 2 days</div>
+        <div class="status-box">❌ Absent: 1 day</div>
+        <div class="status-box">📝 Leaves Taken: 1 day</div>
       </div>
     </div>
+
   </div>
 
 </body>

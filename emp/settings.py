@@ -127,6 +127,9 @@ STATICFILES_DIRS = [BASE_DIR / "user" / "static"]
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'user', 'static'),  # <-- Points to your app's static folder
 ]
+MEDIA_URL = '/profiles/'  # this matches your desired URL prefix
+MEDIA_ROOT = BASE_DIR / 'media/profiles'  # folder where images will be stored
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
