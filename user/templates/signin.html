@@ -109,10 +109,16 @@
   </style>
 </head>
 <body>
+  {% if messages %}
+  {% for message in messages %}
+    <div class="alert alert-danger">{{ message }}</div>
+  {% endfor %}
+{% endif %}
+
   <div class="signin-container">
     <h2>Welcome Back! Sign In</h2>
  <img src="../static/pic 2.png" alt="Illustration" class="illustration" />
-    <form method="post">
+    <form action="{% url 'profile' %}" method="get">
       {% csrf_token %}
 
       <!-- Email -->
