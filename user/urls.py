@@ -39,8 +39,8 @@ urlpatterns = [
     path('profile/', views.profile_view, name='profile'),
     path('latecomers/', views.latecomers_view, name='latecomers'),
     path('payroll/', views.payroll_view, name='payroll'),
-    path('announcements/', views.announcements_view, name='announcements'),
-    path('documents/', views.documents_view, name='documents'),
+    path('announcements/', views.announcement_view, name='announcements'),
+    path('documents/', views.document_view, name='documents'),
 
     path('employee-login/', views.employee_login, name='employee_login'),
     path('supervisor-login/', views.supervisor_login, name='supervisor_login'),

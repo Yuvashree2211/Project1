@@ -7,3 +7,24 @@ class UserSignupForm(forms.ModelForm):
     class Meta:
         model = Users
         fields = ['full_name', 'email', 'phone', 'password', 'profile_picture']
+
+from django import forms
+from .models import Payroll
+
+class PayrollForm(forms.ModelForm):
+    class Meta:
+        model = Payroll
+        fields = ['user', 'month', 'base_salary', 'bonus', 'deductions', 'net_pay', 'status', 'paid_on']
+        widgets = {
+            'month': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter month (e.g., July 2025)'}),
+            'base_salary': forms.NumberInput(attrs={'class': 'form-control'}),
+            'bonus': forms.NumberInput(attrs={'class': 'form-control'}),
+            'deductions': forms.NumberInput(attrs={'class': 'form-control'}),
+            'net_pay': forms.NumberInput(attrs={'class': 'form-control'}),
+            'status': forms.Select(attrs={'class': 'form-control'}, choices=[
+                ('Paid', 'Paid'),
+                ('Pending', 'Pending'),
+                ('Processing', 'Processing'),
+            ]),
+            'paid_on': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
+        }

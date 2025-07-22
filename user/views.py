@@ -5,7 +5,7 @@ from django.contrib.auth.hashers import make_password
 from django.contrib.auth.decorators import login_required
 from .forms import UserSignupForm
 from .models import Roles
-
+from .forms import PayrollForm
 def index_view(request):
     return render(request, 'index.html')
 
@@ -60,17 +60,6 @@ def profile_view(request):
 def latecomers_view(request):
     return render(request, 'user/latecomers.html')
 
-def payroll_view(request):
-    return render(request, 'payroll.html')
-
-
-def announcements_view(request):
-    return render(request, 'announcements.html')
-
-
-def documents_view(request):
-    return render(request, 'documents.html')
-
 def employee_login(request):
     return render(request, 'loginpage.html')
 
@@ -101,6 +90,36 @@ def user_signup(request):
 
     return render(request, 'signup.html', {'form': form})
 
+
+def payroll_view(request):
+    if request.method == 'POST':
+        form = PayrollForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('payroll')
+    else:
+        form = PayrollForm()
+    return render(request, 'payroll.html', {'form': form})
+
+def announcement_view(request):
+    if request.method == 'POST':
+        form = AnnouncementForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('announcements')
+    else:
+        form = AnnouncementForm()
+    return render(request, 'announcements.html', {'form': form})
+
+def document_view(request):
+    if request.method == 'POST':
+        form = DocumentForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('documents')
+    else:
+        form = DocumentForm()
+    return render(request, 'documents.html', {'form': form})
 
 def welcome_page(request):
     return render(request, 'welcome.html')
