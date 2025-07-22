@@ -192,11 +192,7 @@ def welcome_page(request):
 def redirect_to_welcome(request):
     return redirect('welcome')
 
-
-def register_view(request):
-    return render(request, 'register.html')
-
-def attend_view(request):
+def Attend_view(request):
     return render(request, 'Attend.html')
 
 def statistics_view(request):
@@ -211,3 +207,21 @@ def employe_view(request):
 def logout_view(request):
     return render(request, 'logout.html')
 
+def leave_view(request):
+    return render(request, 'leave.html')
+
+def notification_view(request):
+    return render(request, 'notification.html')
+
+def task_view(request):
+    return render(request, 'task.html')
+
+def attendence_view(request):
+    return render(request, 'attendence.html')
+from django.shortcuts import render
+
+def attendance(request):
+    return render(request, 'attendance.html')
+
+def leave(request):
+    return render(request, 'leave.html')

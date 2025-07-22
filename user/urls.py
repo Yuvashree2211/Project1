@@ -49,11 +49,14 @@ urlpatterns = [
     path('login/', views.redirect_to_welcome, name='login'),
     path('welcome/', views.welcome_page, name='welcome'),
     path('register/', views.register_view, name='register'),
-    path('attend/', views.attend_view, name='attend'),
+    path('Attend/', views.Attend_view, name='Attend'),
     path('statistics/', views.statistics_view, name='statistics'),
     path('early/', views.early_view, name='early'),
     path('employe/', views.employe_view, name='employe'),
     path('logout/', views.logout_view, name='logout'),
+    path('leave/', views.leave_view, name='leave'),
+    path('notification/', views.notification_view, name='notification'),
+    path('task/', views.task_view, name='task'),
 ]
 
 
