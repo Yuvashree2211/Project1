@@ -263,34 +263,62 @@ def add_payroll_view(request):
         return redirect('payroll')
 
 def payroll_view(request):
-    if request.method == 'POST':
-        form = PayrollForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('payroll')
-    else:
-        form = PayrollForm()
-    return render(request, 'payroll.html', {'form': form})
+    return render(request, 'payroll.html')
 
-def announcement_view(request):
+def announcements_view(request):
+    return render(request, 'announcements.html')
+
+from .models import Announcements
+from django.utils import timezone
+
+def announcements_view(request):
     if request.method == 'POST':
-        form = AnnouncementForm(request.POST)
-        if form.is_valid():
-            form.save()
+        title = request.POST.get('title')
+        description = request.POST.get('description')
+        created_by_id = request.session.get('user_id')  # session user
+        created_at = timezone.now()
+
+        try:
+            user = Users.objects.get(id=created_by_id)
+            Announcements.objects.create(
+                title=title,
+                description=description,
+                created_by=user,
+                created_at=created_at
+            )
+            messages.success(request, "Announcement added successfully.")
             return redirect('announcements')
-    else:
-        form = AnnouncementForm()
-    return render(request, 'announcements.html', {'form': form})
+        except Users.DoesNotExist:
+            messages.error(request, "User not found.")
 
-def document_view(request):
+    # Display existing announcements
+    announcements = Announcements.objects.select_related('created_by').order_by('-created_at')
+    return render(request, 'announcements.html', {'announcements': announcements})
+
+def documents_view(request):
+    return render(request, 'documents.html')
+
+from .forms import DocumentForm
+from .models import Documents
+from django.contrib import messages
+
+def documents_view(request):
     if request.method == 'POST':
-        form = DocumentForm(request.POST)
+        form = DocumentForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
+            messages.success(request, "Document uploaded successfully.")
             return redirect('documents')
+        else:
+            messages.error(request, "Error uploading document.")
     else:
         form = DocumentForm()
-    return render(request, 'documents.html', {'form': form})
+
+    documents = Documents.objects.select_related('user').order_by('-uploaded_at')
+    return render(request, 'documents.html', {
+        'form': form,
+        'documents': documents
+    })
 
 def welcome_page(request):
     return render(request, 'welcome.html')
