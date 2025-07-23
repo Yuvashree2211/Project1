@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,50 +6,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Leave Management</title>
   <style>
-    * {
-      box-sizing: border-box;
-    }
-
     body {
       font-family: Arial, sans-serif;
       margin: 0;
-      padding: 0;
-      background: #f5f5f5;
+      padding: 20px;
+      background: #f0f2f5;
     }
 
-    .header {
-      background-color: #7ac143;
-      color: white;
-      padding: 15px;
+    h2 {
       text-align: center;
-      position: relative;
-    }
-
-    .header .menu,
-    .header .back {
-      position: absolute;
-      top: 15px;
-      font-size: 20px;
-      cursor: pointer;
-    }
-
-    .header .back {
-      left: 15px;
-    }
-
-    .header .menu {
-      right: 15px;
-    }
-
-    .container {
-      padding: 15px;
+      color: #333;
     }
 
     table {
       width: 100%;
       border-collapse: collapse;
+      margin-bottom: 30px;
       background: white;
-      margin-bottom: 20px;
     }
 
     table, th, td {
@@ -60,134 +34,81 @@
       text-align: center;
     }
 
-    .actions button {
-      padding: 6px 12px;
-      border: 1px solid #999;
+    form {
       background-color: white;
-      cursor: pointer;
+      padding: 20px;
+      border-radius: 5px;
     }
 
-    .form-container {
-      background-color: white;
-      border: 1px solid #ccc;
-      padding: 15px;
-    }
-
-    .form-container h3 {
-      margin-top: 0;
-    }
-
-    .form-group {
-      margin-bottom: 10px;
-    }
-
-    .form-group label {
+    form label {
       display: block;
       margin-bottom: 5px;
       font-weight: bold;
     }
 
-    .form-group input {
+    form input, form select, form textarea {
       width: 100%;
       padding: 8px;
+      margin-bottom: 15px;
       border: 1px solid #ccc;
+      border-radius: 4px;
     }
 
-    .save-btn {
+    .btn-submit {
       background-color: #4CAF50;
       color: white;
-      padding: 10px 20px;
       border: none;
+      padding: 12px 20px;
       cursor: pointer;
-      margin-top: 10px;
       width: 100%;
+      font-size: 16px;
     }
 
-    /* Responsive */
-    @media (max-width: 600px) {
-      .header h2 {
-        font-size: 18px;
-      }
-
-      .form-group input {
-        font-size: 14px;
-      }
-
-      table, th, td {
-        font-size: 14px;
-      }
-
-      .save-btn {
-        font-size: 16px;
-      }
+    .btn-submit:hover {
+      background-color: #45a049;
     }
   </style>
 </head>
 <body>
 
-  <div class="header">
-    <span class="back">&#8592;</span>
-    <h2>Leave</h2>
-    <span class="menu">&#9776;</span>
-  </div>
+  <h2>Leave Management</h2>
 
-  <div class="container">
+  <!-- LEAVE RECORDS TABLE -->
+  <table>
+    <thead>
+      <tr>
+        <th>User</th>
+        <th>Start Date</th>
+        <th>End Date</th>
+        <th>Type</th>
+        <th>Status</th>
+        <th>Reason</th>
+        <th>Requested At</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for leave in leaves %}
+      <tr>
+        <td>{{ leave.user.full_name }}</td>
+        <td>{{ leave.start_date }}</td>
+        <td>{{ leave.end_date }}</td>
+        <td>{{ leave.leave_type }}</td>
+        <td>{{ leave.status }}</td>
+        <td>{{ leave.reason }}</td>
+        <td>{{ leave.requested_at|date:"Y-m-d H:i" }}</td>
+      </tr>
+      {% empty %}
+      <tr><td colspan="7">No leave requests yet.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
 
-    <table>
-      <thead>
-        <tr>
-          <th>Leave ID</th>
-          <th>Start Date</th>
-          <th>End Date</th>
-          <th>Status</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>1</td>
-          <td>2024-03-20</td>
-          <td>Type1</td>
-          <td class="actions"><button>Edit</button></td>
-        </tr>
-        <tr>
-          <td>2</td>
-          <td>2023-11-22</td>
-          <td>Type2</td>
-          <td class="actions"><button>Edit</button></td>
-        </tr>
-      </tbody>
-    </table>
-
-    <div class="form-container">
-      <h3>Add Leave</h3>
-      <div class="form-group">
-        <label for="user-id">User ID</label>
-        <input type="text" id="user-id" />
-      </div>
-      <div class="form-group">
-        <label for="start-date">Start Date</label>
-        <input type="date" id="start-date" />
-      </div>
-      <div class="form-group">
-        <label for="end-date">End Date</label>
-        <input type="date" id="end-date" />
-      </div>
-      <div class="form-group">
-        <label for="reason">Reason</label>
-        <input type="text" id="reason" />
-      </div>
-      <div class="form-group">
-        <label for="type">Type</label>
-        <input type="text" id="type" />
-      </div>
-      <div class="form-group">
-        <label for="requested-at">Requested At</label>
-        <input type="datetime-local" id="requested-at" />
-      </div>
-      <button class="save-btn">Save</button>
-    </div>
-
-  </div>
+  <!-- LEAVE FORM -->
+  <form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn-submit">Submit Leave Request</button>
+  </form>
 
 </body>
 </html>

@@ -20,7 +20,7 @@ from user.views import signin_view, dashboard_view
 
 from user.views import index_view, role_choice_view, login_page,signin_view, dashboard_view,welcome_page,early_view,employe_view,logout_view
 
-
+from .views import task_view
 from django.urls import path, include
 from user.views import *
 from .views import index_view, role_choice_view
@@ -47,7 +47,7 @@ urlpatterns = [
     path('add_payroll/', views.add_payroll_view, name='add_payroll'),
     path('login/', views.redirect_to_welcome, name='login'),
     path('welcome/', views.welcome_page, name='welcome'),
-     path('Attend/', views.Attend_view, name='Attend'),
+    path('Attend/', views.Attend_view, name='Attend'),
     path('statistics/', views.statistics_view, name='statistics'),
     path('early/', views.early_view, name='early'),
     path('employe/', views.employe_view, name='employe'),

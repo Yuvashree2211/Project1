@@ -42,6 +42,6 @@ urlpatterns = [
      
  
     path('attendance/', views.attendance, name='attendance'),
-    path('leave/', views.leave, name='leave'),
+    path('leave/', views.leave_view, name='leave'),
 
 ]
