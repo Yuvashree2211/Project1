@@ -294,6 +294,7 @@ def announcements_view(request):
     # Display existing announcements
     announcements = Announcements.objects.select_related('created_by').order_by('-created_at')
     return render(request, 'announcements.html', {'announcements': announcements})
+       
 
 def documents_view(request):
     return render(request, 'documents.html')
