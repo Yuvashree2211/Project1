@@ -71,6 +71,7 @@ def payroll_view(request):
         'payrolls': payrolls,
         'users': users
     })
+
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.hashers import check_password
@@ -367,8 +368,22 @@ def notification_view(request):
     })
 
 
+from django.shortcuts import render, redirect
+from .models import Tasks
+from .forms import TaskForm
+
 def task_view(request):
-    return render(request, 'task.html')
+    if request.method == 'POST':
+        form = TaskForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('task')  # Update this to your actual URL name
+    else:
+        form = TaskForm()
+
+    tasks = Tasks.objects.all().order_by('-created_at')
+    return render(request, 'task.html', {'form': form, 'tasks': tasks})
+
 
 def attendence_view(request):
     return render(request, 'attendence.html')
@@ -376,6 +391,7 @@ from django.shortcuts import render
 
 def attendance(request):
     return render(request, 'attendance.html')
+
 
 def leave(request):
     return render(request, 'leave.html')
@@ -394,4 +410,22 @@ def delete_notification(request, pk):
     notification.delete()
     messages.success(request, "Notification deleted.")
     return redirect('notification')
+
+
+from django.shortcuts import render, redirect
+from .models import Leaves
+from .forms import LeaveForm
+
+def leave_view(request):
+    if request.method == 'POST':
+        form = LeaveForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('leave')  # Make sure this name matches your URL pattern name
+    else:
+        form = LeaveForm()
+
+    leaves = Leaves.objects.all().order_by('-requested_at')  # Show latest leaves first
+    return render(request, 'leave.html', {'form': form, 'leaves': leaves})
+
 

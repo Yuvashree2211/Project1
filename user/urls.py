@@ -20,7 +20,7 @@ from user.views import signin_view, dashboard_view
 
 from user.views import index_view, role_choice_view, login_page,signin_view, dashboard_view,welcome_page,early_view,employe_view,logout_view
 
-
+from .views import task_view
 from django.urls import path, include
 from user.views import *
 from .views import index_view, role_choice_view
