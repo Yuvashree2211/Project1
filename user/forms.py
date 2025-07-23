@@ -71,3 +71,36 @@ class LeaveForm(forms.ModelForm):
             'leave_type': forms.TextInput(attrs={'placeholder': 'Sick, Casual, Paid...'}),
             'status': forms.TextInput(attrs={'placeholder': 'Pending/Approved/Rejected'}),
         }
+
+from django import forms
+from .models import Notifications
+
+class NotificationForm(forms.ModelForm):
+    class Meta:
+        model = Notifications
+        fields = ['user', 'message', 'read_status']
+        widgets = {
+            'message': forms.Textarea(attrs={'rows': 3, 'class': 'form-control'}),
+            'read_status': forms.CheckboxInput(),
+        }
+
+from django import forms
+from .models import Announcements
+
+class AnnouncementForm(forms.ModelForm):
+    class Meta:
+        model = Announcements
+        fields = ['title', 'description']
+        widgets = {
+            'title': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter title'}),
+            'description': forms.Textarea(attrs={'class': 'form-control', 'rows': 3, 'placeholder': 'Enter description'}),
+        }
+
+from django import forms
+from .models import Documents
+
+class DocumentForm(forms.ModelForm):
+    class Meta:
+        model = Documents
+        fields = ['user', 'doc_type', 'file_path']
+

@@ -39,9 +39,9 @@ urlpatterns = [
     path('profile/', views.profile_view, name='profile'),
     path('latecomers/', views.latecomers_view, name='latecomers'),
     path('payroll/', views.payroll_view, name='payroll'),
-    path('announcements/', views.announcement_view, name='announcements'),
+    path('announcements/', views.announcements_view, name='announcements'),
     path('admin_dashboard/', views.admin_dashboard_view, name='admin_dashboard'),
-    path('documents/', views.document_view, name='documents'),
+    path('documents/', views.documents_view, name='documents'),
     path('employee-login/', views.employee_login, name='employee_login'),
     path('supervisor-login/', views.supervisor_login, name='supervisor_login'),
     path('add_payroll/', views.add_payroll_view, name='add_payroll'),
@@ -56,6 +56,9 @@ urlpatterns = [
     path('notification/', views.notification_view, name='notification'),
     path('task/', views.task_view, name='task'),
     path('supervisor_dashboard/', views.supervisor_dashboard_view, name='supervisor_dashboard'),
+    path('notification/mark-read/<int:pk>/', views.mark_notification_read, name='mark_notification_read'),
+    path('notification/delete/<int:pk>/', views.delete_notification, name='delete_notification'),
+
 ]
 
 

@@ -263,34 +263,62 @@ def add_payroll_view(request):
         return redirect('payroll')
 
 def payroll_view(request):
-    if request.method == 'POST':
-        form = PayrollForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('payroll')
-    else:
-        form = PayrollForm()
-    return render(request, 'payroll.html', {'form': form})
+    return render(request, 'payroll.html')
 
-def announcement_view(request):
+def announcements_view(request):
+    return render(request, 'announcements.html')
+
+from .models import Announcements
+from django.utils import timezone
+
+def announcements_view(request):
     if request.method == 'POST':
-        form = AnnouncementForm(request.POST)
-        if form.is_valid():
-            form.save()
+        title = request.POST.get('title')
+        description = request.POST.get('description')
+        created_by_id = request.session.get('user_id')  # session user
+        created_at = timezone.now()
+
+        try:
+            user = Users.objects.get(id=created_by_id)
+            Announcements.objects.create(
+                title=title,
+                description=description,
+                created_by=user,
+                created_at=created_at
+            )
+            messages.success(request, "Announcement added successfully.")
             return redirect('announcements')
-    else:
-        form = AnnouncementForm()
-    return render(request, 'announcements.html', {'form': form})
+        except Users.DoesNotExist:
+            messages.error(request, "User not found.")
 
-def document_view(request):
+    # Display existing announcements
+    announcements = Announcements.objects.select_related('created_by').order_by('-created_at')
+    return render(request, 'announcements.html', {'announcements': announcements})
+
+def documents_view(request):
+    return render(request, 'documents.html')
+
+from .forms import DocumentForm
+from .models import Documents
+from django.contrib import messages
+
+def documents_view(request):
     if request.method == 'POST':
-        form = DocumentForm(request.POST)
+        form = DocumentForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
+            messages.success(request, "Document uploaded successfully.")
             return redirect('documents')
+        else:
+            messages.error(request, "Error uploading document.")
     else:
         form = DocumentForm()
-    return render(request, 'documents.html', {'form': form})
+
+    documents = Documents.objects.select_related('user').order_by('-uploaded_at')
+    return render(request, 'documents.html', {
+        'form': form,
+        'documents': documents
+    })
 
 def welcome_page(request):
     return render(request, 'welcome.html')
@@ -316,8 +344,28 @@ def logout_view(request):
 def leave_view(request):
     return render(request, 'leave.html')
 
+from .models import Notifications, Users
+from .forms import NotificationForm
+from django.utils import timezone
+
 def notification_view(request):
-    return render(request, 'notification.html')
+    if request.method == 'POST':
+        form = NotificationForm(request.POST)
+        if form.is_valid():
+            form.instance.created_at = timezone.now()
+            form.save()
+            messages.success(request, "Notification sent successfully.")
+            return redirect('notification')
+    else:
+        form = NotificationForm()
+
+    # Fetch all notifications
+    notifications = Notifications.objects.select_related('user').order_by('-created_at')
+    return render(request, 'notification.html', {
+        'form': form,
+        'notifications': notifications
+    })
+
 
 from django.shortcuts import render, redirect
 from .models import Tasks
@@ -343,6 +391,7 @@ from django.shortcuts import render
 def attendance(request):
     return render(request, 'attendance.html')
 
+
 from django.shortcuts import render, redirect
 from .models import Leaves
 from .forms import LeaveForm
@@ -358,4 +407,23 @@ def leave_view(request):
 
     leaves = Leaves.objects.all().order_by('-requested_at')  # Show latest leaves first
     return render(request, 'leave.html', {'form': form, 'leaves': leaves})
+
+def leave(request):
+    return render(request, 'leave.html')
+
+from django.shortcuts import get_object_or_404
+
+def mark_notification_read(request, pk):
+    notification = get_object_or_404(Notifications, pk=pk)
+    notification.read_status = True
+    notification.save()
+    messages.success(request, "Notification marked as read.")
+    return redirect('notification')
+
+def delete_notification(request, pk):
+    notification = get_object_or_404(Notifications, pk=pk)
+    notification.delete()
+    messages.success(request, "Notification deleted.")
+    return redirect('notification')
+
 
