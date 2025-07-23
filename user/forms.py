@@ -29,6 +29,49 @@ class PayrollForm(forms.ModelForm):
             'paid_on': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
         }
 
+        
+from django import forms
+from .models import Tasks, Users
+
+class TaskForm(forms.ModelForm):
+    class Meta:
+        model = Tasks
+        fields = ['assigned_to', 'assigned_by', 'title', 'description', 'status', 'due_date']
+        widgets = {
+            'assigned_to': forms.Select(attrs={'class': 'form-control'}),
+            'assigned_by': forms.Select(attrs={'class': 'form-control'}),
+            'title': forms.TextInput(attrs={'class': 'form-control'}),
+            'description': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
+            'status': forms.Select(choices=[
+                ('Pending', 'Pending'),
+                ('Completed', 'Completed'),
+                ('Overdue', 'Overdue'),
+            ], attrs={'class': 'form-control'}),
+            'due_date': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
+        }
+
+    def __init__(self, *args, **kwargs):
+        super(TaskForm, self).__init__(*args, **kwargs)
+        self.fields['assigned_to'].queryset = Users.objects.all()
+        self.fields['assigned_by'].queryset = Users.objects.all()
+
+
+
+from django import forms
+from .models import Leaves
+
+class LeaveForm(forms.ModelForm):
+    class Meta:
+        model = Leaves
+        fields = ['user', 'start_date', 'end_date', 'reason', 'leave_type', 'status']
+        widgets = {
+            'start_date': forms.DateInput(attrs={'type': 'date'}),
+            'end_date': forms.DateInput(attrs={'type': 'date'}),
+            'reason': forms.Textarea(attrs={'rows': 3}),
+            'leave_type': forms.TextInput(attrs={'placeholder': 'Sick, Casual, Paid...'}),
+            'status': forms.TextInput(attrs={'placeholder': 'Pending/Approved/Rejected'}),
+        }
+
 from django import forms
 from .models import Notifications
 

@@ -164,7 +164,7 @@ def profile_view(request):
 
 
 def latecomers_view(request):
-    return render(request, 'user/latecomers.html')
+    return render(request, 'latecomers.html')
 
 def employee_login(request):
     return render(request, 'loginpage.html')
@@ -295,6 +295,7 @@ def announcements_view(request):
     # Display existing announcements
     announcements = Announcements.objects.select_related('created_by').order_by('-created_at')
     return render(request, 'announcements.html', {'announcements': announcements})
+       
 
 def documents_view(request):
     return render(request, 'documents.html')
@@ -364,7 +365,8 @@ def notification_view(request):
     notifications = Notifications.objects.select_related('user').order_by('-created_at')
     return render(request, 'notification.html', {
         'form': form,
-        'notifications': notifications
+        'notifications': notifications,
+        'request': request,
     })
 
 
