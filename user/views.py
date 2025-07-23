@@ -363,7 +363,8 @@ def notification_view(request):
     notifications = Notifications.objects.select_related('user').order_by('-created_at')
     return render(request, 'notification.html', {
         'form': form,
-        'notifications': notifications
+        'notifications': notifications,
+        'request': request,
     })
 
 
@@ -427,3 +428,9 @@ def delete_notification(request, pk):
     return redirect('notification')
 
 
+from django.contrib.auth import logout
+from django.shortcuts import redirect
+
+def logout_view(request):
+    logout(request)  # clear the session
+    return redirect('signin')  # go to signin page

@@ -121,12 +121,27 @@
         justify-content: center;
       }
     }
+
+  .back-button {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+  }
+  .back-button:hover {
+    text-decoration: underline;
+  }
+
+
   </style>
 </head>
 <body>
 
   <div class="header">
-    <span>&larr;</span>
+    <span><a href="{{ request.META.HTTP_REFERER|default:'/' }}" class="back-button">
+    ← 
+</a>
+</span>
     <span>Notifications</span>
     <span>&#9776;</span>
   </div>
