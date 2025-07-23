@@ -56,6 +56,9 @@ urlpatterns = [
     path('notification/', views.notification_view, name='notification'),
     path('task/', views.task_view, name='task'),
     path('supervisor_dashboard/', views.supervisor_dashboard_view, name='supervisor_dashboard'),
+    path('notification/mark-read/<int:pk>/', views.mark_notification_read, name='mark_notification_read'),
+    path('notification/delete/<int:pk>/', views.delete_notification, name='delete_notification'),
+
 ]
 
 

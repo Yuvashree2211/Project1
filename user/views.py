@@ -316,8 +316,28 @@ def logout_view(request):
 def leave_view(request):
     return render(request, 'leave.html')
 
+from .models import Notifications, Users
+from .forms import NotificationForm
+from django.utils import timezone
+
 def notification_view(request):
-    return render(request, 'notification.html')
+    if request.method == 'POST':
+        form = NotificationForm(request.POST)
+        if form.is_valid():
+            form.instance.created_at = timezone.now()
+            form.save()
+            messages.success(request, "Notification sent successfully.")
+            return redirect('notification')
+    else:
+        form = NotificationForm()
+
+    # Fetch all notifications
+    notifications = Notifications.objects.select_related('user').order_by('-created_at')
+    return render(request, 'notification.html', {
+        'form': form,
+        'notifications': notifications
+    })
+
 
 def task_view(request):
     return render(request, 'task.html')
@@ -331,3 +351,19 @@ def attendance(request):
 
 def leave(request):
     return render(request, 'leave.html')
+
+from django.shortcuts import get_object_or_404
+
+def mark_notification_read(request, pk):
+    notification = get_object_or_404(Notifications, pk=pk)
+    notification.read_status = True
+    notification.save()
+    messages.success(request, "Notification marked as read.")
+    return redirect('notification')
+
+def delete_notification(request, pk):
+    notification = get_object_or_404(Notifications, pk=pk)
+    notification.delete()
+    messages.success(request, "Notification deleted.")
+    return redirect('notification')
+

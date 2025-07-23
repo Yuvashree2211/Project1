@@ -28,3 +28,15 @@ class PayrollForm(forms.ModelForm):
             ]),
             'paid_on': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
         }
+
+from django import forms
+from .models import Notifications
+
+class NotificationForm(forms.ModelForm):
+    class Meta:
+        model = Notifications
+        fields = ['user', 'message', 'read_status']
+        widgets = {
+            'message': forms.Textarea(attrs={'rows': 3, 'class': 'form-control'}),
+            'read_status': forms.CheckboxInput(),
+        }
