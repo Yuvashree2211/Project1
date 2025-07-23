@@ -10,17 +10,32 @@
       font-family: Arial, sans-serif;
       margin: 0;
       padding: 20px;
-      background: #f0f2f5;
+      background: #f1f6f2;
     }
 
-    h2 {
+    .header {
+      position: relative;
       text-align: center;
-      color: #333;
+      background-color: #4CAF50; /* Green background */
+      padding: 15px 0;
+      border-radius: 5px;
+      color: white;
+    }
+
+    .back-btn {
+      position: absolute;
+      left: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 24px;
+      text-decoration: none;
+      color: white;
     }
 
     table {
       width: 100%;
       border-collapse: collapse;
+      margin-top: 30px;
       margin-bottom: 30px;
       background: white;
     }
@@ -71,7 +86,11 @@
 </head>
 <body>
 
-  <h2>Leave Management</h2>
+  <!-- Header with Green Background -->
+  <div class="header">
+    <a href="{% url 'admin_dashboard' %}" class="back-btn">&#8592;</a>
+    <h2>Leave Management</h2>
+  </div>
 
   <!-- LEAVE RECORDS TABLE -->
   <table>
@@ -112,3 +131,4 @@
 
 </body>
 </html>
+

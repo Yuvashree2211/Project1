@@ -41,6 +41,7 @@ class Attendance(models.Model):
         return f"{self.user.full_name} - {self.date}"
 
 
+
 class Tasks(models.Model):
     assigned_to = models.ForeignKey(Users, on_delete=models.CASCADE, related_name='assigned_tasks')
     assigned_by = models.ForeignKey(Users, on_delete=models.SET_NULL, null=True, related_name='created_tasks')
