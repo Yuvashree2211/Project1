@@ -163,7 +163,7 @@ def profile_view(request):
 
 
 def latecomers_view(request):
-    return render(request, 'user/latecomers.html')
+    return render(request, 'latecomers.html')
 
 def employee_login(request):
     return render(request, 'loginpage.html')
