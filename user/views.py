@@ -328,8 +328,27 @@ def welcome_page(request):
 def redirect_to_welcome(request):
     return redirect('welcome')
 
-def Attend_view(request):
-    return render(request, 'Attend.html')
+from django.shortcuts import render, redirect
+from .models import Attendance
+from .forms import AttendanceForm
+
+def attendance_view(request):
+    if request.method == 'POST':
+        form = AttendanceForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('attendance')  # Redirect to the same page after saving
+    else:
+        form = AttendanceForm()
+
+    records = Attendance.objects.select_related('user').order_by('-date')
+
+    context = {
+        'form': form,
+        'records': records
+    }
+    return render(request, 'attendance.html', context)
+
 
 def statistics_view(request):
     return render(request, 'statistics.html')

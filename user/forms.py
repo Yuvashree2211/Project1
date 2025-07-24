@@ -146,3 +146,16 @@ class LeaveForm(forms.ModelForm):
             'leave_type': forms.TextInput(attrs={'placeholder': 'Sick, Casual, Paid...'}),
             'status': forms.TextInput(attrs={'placeholder': 'Pending/Approved/Rejected'}),
         }
+        
+from django import forms
+from .models import Attendance
+
+class AttendanceForm(forms.ModelForm):
+    class Meta:
+        model = Attendance
+        fields = ['user', 'date', 'check_in_time', 'check_out_time', 'status']
+        widgets = {
+            'date': forms.DateInput(attrs={'type': 'date'}),
+            'check_in_time': forms.TimeInput(attrs={'type': 'time'}),
+            'check_out_time': forms.TimeInput(attrs={'type': 'time'}),
+        }

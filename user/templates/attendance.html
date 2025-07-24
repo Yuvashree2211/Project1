@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Attendance</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+    }
+
+    header {
+      background-color: #4CAF50;
+      color: white;
+      padding: 12px;
+      font-size: 20px;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    header .title {
+      margin-left: 16px;
+    }
+
+    .container {
+      padding: 20px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+
+    th, td {
+      padding: 12px;
+      border: 1px solid #ddd;
+      text-align: left;
+    }
+
+    th {
+      background-color: #f2f2f2;
+    }
+
+    .late {
+      color: red;
+    }
+
+    .form-section {
+      border: 1px solid #ccc;
+      padding: 20px;
+      border-radius: 4px;
+    }
+
+    .form-section h3 {
+      margin-top: 0;
+    }
+
+    .form-section input,
+    .form-section select {
+      width: 100%;
+      padding: 8px;
+      margin-top: 4px;
+      margin-bottom: 12px;
+      box-sizing: border-box;
+    }
+
+    .submit-btn {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      cursor: pointer;
+      width: 100%;
+      font-size: 16px;
+    }
+
+    .submit-btn:hover {
+      background-color: #45a049;
+    }
+
+    .message {
+      padding: 10px;
+      margin-bottom: 20px;
+      border-radius: 4px;
+    }
+
+    .message.success {
+      background-color: #d4edda;
+      color: #155724;
+    }
+
+    .message.error {
+      background-color: #f8d7da;
+      color: #721c24;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="title">📅 Attendance</div>
+</header>
+
+<div class="container">
+
+  <!-- Success/Error Messages -->
+  {% if messages %}
+    {% for message in messages %}
+      <div class="message {{ message.tags }}">{{ message }}</div>
+    {% endfor %}
+  {% endif %}
+
+  <!-- Attendance Table -->
+  <table>
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Employee</th>
+        <th>Date</th>
+        <th>Check In</th>
+        <th>Check Out</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for record in records %}
+        <tr>
+          <td>{{ forloop.counter }}</td>
+          <td>{{ record.user.full_name }}</td>
+          <td>{{ record.date }}</td>
+          <td>{{ record.check_in_time }}</td>
+          <td>{{ record.check_out_time|default:"--" }}</td>
+          <td>{{ record.status }}</td>
+        </tr>
+      {% empty %}
+        <tr>
+          <td colspan="6">No attendance records found.</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <!-- Add Attendance Form -->
+  <div class="form-section">
+    <h3>Add Attendance</h3>
+    <form method="POST">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" class="submit-btn">Save</button>
+    </form>
+  </div>
+
+</div>
+
+</body>
+</html>
