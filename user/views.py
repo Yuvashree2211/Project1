@@ -359,8 +359,13 @@ def early_view(request):
 def employe_view(request):
     return render(request, 'employe.html')
 
+from django.contrib.auth import logout
+from django.shortcuts import redirect
+
 def logout_view(request):
-    return render(request, 'logout.html')
+    logout(request)
+    return redirect('signin')  # Redirect to your signin page URL name
+
 
 def leave_view(request):
     return render(request, 'leave.html')
