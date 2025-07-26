@@ -28,21 +28,24 @@
     }
     .header {
       background-color: #4CAF50;
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
       color: white;
     }
   </style>
 </head>
 <body>
 
-  <!-- Header -->
-<div class="d-flex justify-content-between align-items-center p-2 mb-3 header rounded">
-  <div>
-    <a href="javascript:history.back()" class="btn btn-light btn-sm">&#8592;</a>
-
-    <span class="ms-2 fw-bold">Announcements</span>
+<div class="header">
+    <span><a href="{{ request.META.HTTP_REFERER|default:'/' }}" style="color: white;" class="back-button">
+    ← 
+</a>
+</span>
+    <span>Announcements</span>
+    <span>&#9776;</span>
   </div>
-  <button class="btn btn-light btn-sm">&#9776;</button>
-</div>
   <table class="table table-bordered">
   <thead class="table-light">
     <tr>
