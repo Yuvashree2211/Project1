@@ -85,9 +85,10 @@
 
 <!-- Header -->
 <div class="header">
-  <a href="{% url 'profile' %}" style="text-decoration: none; color: white;">
-    <span>&larr;</span>
-  </a>
+  <span><a href="{{ request.META.HTTP_REFERER|default:'/' }}" style="color: white;" class="back-button">
+    ← 
+</a>
+</span>
   <span>Payroll</span>
   <span>&#9776;</span>
 </div>
